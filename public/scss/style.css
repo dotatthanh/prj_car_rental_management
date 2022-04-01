@@ -29,7 +29,7 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\0000330}}
 .menu {
-  background: #00a551;
+  background: #000;
   display: inline-block;
   width: 100%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\0000336}}
@@ -53,9 +53,9 @@ body {
     .menu li:hover > ul {
       display: block;
       top: 100%;
-      left: 0;
+      left: -30%;
       background: #fff;
-      width: 200px;
+      width: 250px;
       border: 1px solid #ebebeb;
       border-radius: 5px;
       z-index: 999; }
@@ -65,7 +65,11 @@ body {
         display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\0000370}}
         .menu li:hover > ul li:hover {
-          background: #00a551; }
+          background: #c1c1c1;}
+
+          .menu li:hover > ul li a:hover {
+          color: #fff!important;}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\0000374}}
         .menu li:hover > ul li a {
           color: #000; }
@@ -105,8 +109,8 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\00003120}}
 footer {
-  background: #efefef;
-  padding-top: 20px;
+  background: #c1c1c1;
+  padding-top: 50px;
   margin-top: 30px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Admin\/Desktop\/web\/scss\/style\.scss}line{font-family:\00003125}}
   footer .title-footer {
@@ -336,3 +340,12 @@ footer {
     -ms-transform: scale3d(2, 1.5, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
     transform: scale3d(2, 1.5, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0); }
 /*# sourceMappingURL=style.css.map */
+
+.btn-logout {
+  background: none;
+  padding: 12px;
+}
+
+.btn-logout:focus {
+  outline: none;
+}

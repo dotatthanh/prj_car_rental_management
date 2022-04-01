@@ -1,23 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ConsultingRoomController;
-use App\Http\Controllers\TypeController;
-use App\Http\Controllers\MedicalServiceController;
-use App\Http\Controllers\MedicineController;
-use App\Http\Controllers\HealthInsuranceCardController;
-use App\Http\Controllers\HealthCertificationController;
-use App\Http\Controllers\PrescriptionController;
-use App\Http\Controllers\ServiceVoucherController;
-use App\Http\Controllers\ServiceVoucherDetailController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\CashierHealthCertificationController;
-use App\Http\Controllers\CashierServiceVoucherController;
-use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
@@ -34,9 +21,9 @@ use App\Http\Controllers\RoomController;
 |
 */
 
+
+// Web
 Route::get('/', [WebController::class, 'index'])->name('home');
-
-
 Route::middleware(['website'])->group(function () {
 	Route::post('/dat-thue-phong/{id}', [WebController::class, 'booking'])->name('web.booking');
 	Route::post('/dang-xuat', [WebController::class, 'logout'])->name('web.logout');
@@ -56,11 +43,6 @@ Route::middleware(['guest_website'])->group(function () {
 	Route::get('/dang-ky', [WebController::class, 'register'])->name('web.register');
 	Route::post('/dang-ky', [WebController::class, 'postRegister'])->name('web.post-register');
 });
-
-
-
-
-
 
 
 // Admin

@@ -3,7 +3,7 @@
 @section('title') Trang chủ @endsection
 
 @section('content')
-    <h2 class="title">GIỚI THIỆU</h2>
+    <h2 class="title">PHÒNG</h2>
     <div class="row">
         @foreach ($rooms as $room)
         <div class="col-3 mb-3">
@@ -16,6 +16,8 @@
         </div>
         @endforeach
 
+    </div>
+    <div class="row">
         <div class="m-auto">
             {{ $rooms->links() }}
         </div>

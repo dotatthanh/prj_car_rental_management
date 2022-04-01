@@ -42,79 +42,70 @@
   </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row bg-header">
-            <div class="col-4">
-                <span class="font-weight-bold">Liên hệ:</span> <a href="tel:0901 793 122" class="text-danger">0901 793 122</a>
-            </div>
-            <div class="col-4">
-                <span class="font-weight-bold">Email:</span> <a href="mailto:gmail@gmail.com" class="text-danger">gmail@gmail.com</a>
-            </div>
-            <div class="col-4 text-right">
-                @if (auth()->guard('web')->user())
-                
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ auth()->guard('web')->user()->name }}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('web.profile') }}">Thông tin cá nhân</a>
-                        <a class="dropdown-item" href="{{ route('web.change-password') }}">Đổi mật khẩu</a>
-                        <a class="dropdown-item" href="{{ route('web.info-booking') }}">Thông tin đặt thuê phòng</a>
-                        <div class="dropdown-divider"></div>
-                        <form action="{{ route('web.logout') }}" method="post">
-                            @csrf
-                            <button class="dropdown-item text-danger" type="submit">Đăng xuất</button>
-                        </form>
-                    </div>
-                </div>
-                @else
-                <a href="{{ route('web.login') }}" class="btn btn-success">Đăng nhập</a>
-                <a href="{{ route('web.register') }}" class="btn btn-primary">Đăng ký</a>
-                @endif
-            </div>
-        </div>
-
-        <div class="row align-items-center" style="display: flex;">
-            <div class="col-3 logo">Website thuê phòng trọ</div>
-            <div class="col-9 slogan">
-                TỔ ẤM - BÌNH AN - HẠNH PHÚC
-            </div>
-        </div>
-
-        <div class="row">
-            <ul class="menu">
+    <ul class="menu">
+        <li>
+            <a href="{{ route('home') }}">Trang chủ</a>
+        </li>
+        @if (auth()->guard('web')->user())
+        <li class="float-right mr-5">
+            <a href="{{ route('home') }}">{{ auth()->guard('web')->user()->name }} <i class="fa fa-angle-down" aria-hidden="true"></i>
+</a>
+            <ul>
                 <li>
-                    <a href="{{ route('home') }}">Trang chủ</a>
+                    <a href="{{ route('web.profile') }}">Thông tin cá nhân</a>
+                </li>
+                <li>
+                    <a href="{{ route('web.change-password') }}">Đổi mật khẩu</a>
+                </li>
+                <li>
+                    <a href="{{ route('web.info-booking') }}">Thông tin đặt thuê phòng</a>
+                </li>
+                <li>
+                    <form action="{{ route('web.logout') }}" method="post">
+                        @csrf
+                        <button class="btn-logout text-danger" type="submit">Đăng xuất</button>
+                    </form>
                 </li>
             </ul>
-        </div>
-
+        </li>
+        @else
+            <li class="float-right">
+                <a href="{{ route('web.login') }}">Đăng nhập</a>
+            </li>
+            <li class="float-right">
+                <a href="{{ route('web.register') }}">Đăng ký</a>
+            </li>
+        @endif
+        {{-- <li class="float-right mt-1">
+            @if (auth()->guard('web')->user())
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ auth()->guard('web')->user()->name }}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ route('web.profile') }}">Thông tin cá nhân</a>
+                    <a class="dropdown-item" href="{{ route('web.change-password') }}">Đổi mật khẩu</a>
+                    <a class="dropdown-item" href="{{ route('web.info-booking') }}">Thông tin đặt thuê phòng</a>
+                    <div class="dropdown-divider"></div>
+                    <form action="{{ route('web.logout') }}" method="post">
+                        @csrf
+                        <button class="dropdown-item text-danger" type="submit">Đăng xuất</button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <a href="{{ route('web.login') }}" class="btn btn-success">Đăng nhập</a>
+            <a href="{{ route('web.register') }}" class="btn btn-primary">Đăng ký</a>
+        @endif
+        </li> --}}
+    </ul>
+    <div class="container">
         @yield('content')
 
     </div>
 
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <h4 class="h4 font-weight-bold title-footer">Website thuê phòng trọ</h4>
-                    <p>Công ty Cổ phần ABC</p>
-                    <p>Email: gmail@gmail.com</p>
-                    <p>Tổng đài tư vấn: <a href="tel:0901 793 122">0901 793 122</a></p>
-                </div>
 
-                <div class="col-6">
-                    <p>ĐKKD số: 0102624215-001 – Sở Kế hoạch và Đầu tư thành phố Hà Nội cấp ngày 11/02/2009</p>
-                    <p>Giấy phép hoạt động cấp ngày 21/02/2017</p>
-                    <p>Địa chỉ: 286 Thụy Khuê, Tây Hồ, Hà Nội</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="coppyright">
-            COPYRIGHT ©2020 Website thuê phòng trọ
-        </div>
 
     </footer>
 

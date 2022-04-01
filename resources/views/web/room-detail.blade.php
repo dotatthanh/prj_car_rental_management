@@ -5,8 +5,8 @@
 @section('content')
     <h2 class="title">CHI TIẾT PHÒNG</h2>
     <div class="row">
-        <div class="col-6">
-            <img src="{{ asset($room->image) }}" alt="">
+        <div class="col-6 text-center">
+            <img src="{{ asset($room->image) }}" alt="" class="w-100">
         </div>
         <div class="col-6">
             <h5 class="font-weight-bold font-size-20">{{ $room->name }}</h5>

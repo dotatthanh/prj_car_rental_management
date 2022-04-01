@@ -10,7 +10,7 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
         <meta content="Themesbrand" name="author">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
+        {{-- <link rel="shortcut icon" href="{{ asset('images/logo.jpg') }}"> --}}
 
         @yield('css')
         @stack('css')
@@ -52,23 +52,6 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="{{ route('dashboard') }}" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="{{ asset('images\logo.jpg') }}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{ asset('images\logo-dark.png') }}" alt="" height="17">
-                                </span>
-                            </a>
-
-                            <a href="{{ route('dashboard') }}" class="logo logo-light">
-                                <span class="logo-sm">
-                                    <img src="{{ asset('images\logo.jpg') }}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{ asset('images\logo.jpg') }}" alt="" height="50">
-                                </span>
-                            </a>
                         </div>
 
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
