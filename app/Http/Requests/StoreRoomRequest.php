@@ -34,6 +34,9 @@ class StoreRoomRequest extends FormRequest
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'image' => 'required|image',
+            'utilities' => 'required',
+            'hobbys' => 'required',
+            'types' => 'required',
         ];
     }
 
@@ -54,6 +57,9 @@ class StoreRoomRequest extends FormRequest
             'price.min' => 'Giá không được nhỏ hơn :min.', 
             'image.required' => 'Ảnh là trường bắt buộc.', 
             'image.min' => 'Ảnh phải là hình ảnh (jpg, jpeg, png, bmp, gif, svg hoặc webp).', 
+            'utilities.required' => 'Tiện ích là trường bắt buộc.', 
+            'hobbys.required' => 'Sở thích là trường bắt buộc.', 
+            'types.required' => 'Loại phòng là trường bắt buộc.', 
         ];
     }
 }

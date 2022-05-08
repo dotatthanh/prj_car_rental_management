@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Cập nhật khách hàng @endsection
+@section('title') Thêm loại phòng @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Cập nhật khách hàng</h4>
+                            <h4 class="mb-0 font-size-18">Thêm loại phòng</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('customers.index') }}" title="Quản lý khách hàng" data-toggle="tooltip" data-placement="top">Quản lý khách hàng</a></li>
-                                    <li class="breadcrumb-item active">Cập nhật khách hàng</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('types.index') }}" title="Quản lý loại phòng" data-toggle="tooltip" data-placement="top">Quản lý loại phòng</a></li>
+                                    <li class="breadcrumb-item active">Thêm loại phòng</li>
                                 </ol>
                             </div>
 
@@ -34,9 +34,9 @@
                                 <h4 class="card-title">Thông tin cơ bản</h4>
                                 <p class="card-title-desc">Điền tất cả thông tin bên dưới</p>
 
-                                <form method="POST" action="{{ route('customers.update', $data_edit->id) }}" enctype="multipart/form-data">
-                                    @method('PUT')
-                                    @include('customer._form', ['routeType' => 'update'])
+                                <form method="POST" action="{{ route('types.store') }}" enctype="multipart/form-data">
+
+                                    @include('type._form')
                                     
                                 </form>
 
@@ -49,6 +49,22 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>document.write(new Date().getFullYear())</script> © Skote.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-right d-none d-sm-block">
+                            Design & Develop by Themesbrand
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 @endsection
 
@@ -71,28 +87,7 @@
     <script type="text/javascript">
         $('.docs-date').datepicker({
             format: 'dd-mm-yyyy',
-            endDate: new Date(),
         });
-
-        function getDistricts(id) {
-            $.ajax({
-                url: "{{ route('get.district') }}",
-                type: "POST",
-                data: {
-                    id: id
-                },
-                success: function (respon) {
-                    let text = '';
-                    $.each( respon.districts, function( key, value ) {
-                        text += `<option value="${value.id}">${value.name}</option>`;
-                    });
-                    $('#district_id').html(text);
-                },
-                errors: function () {
-                    alert('Lỗi server chưa lấy được danh sách Quận/Huyện.')
-                }
-            })
-        }
     </script>
 @endpush
 

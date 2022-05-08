@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Utiliti;
+use App\Models\Hobby;
+use App\Models\RoomUtiliti;
+use App\Models\RoomType;
+use App\Models\HobbyRoom;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
@@ -39,7 +45,17 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('room.create');
+        $utilities = Utiliti::all();
+        $types = Type::all();
+        $hobbys = Hobby::all();
+
+        $data = [
+            'utilities' => $utilities,
+            'types' => $types,
+            'hobbys' => $hobbys,
+        ];
+
+        return view('room.create', $data);
     }
 
     /**
@@ -74,6 +90,33 @@ class RoomController extends Controller
             $create->update([
                 'code' => 'P'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
             ]);
+
+            if (isset($request->utilities)) {
+                foreach ($request->utilities as $utiliti) {
+                    RoomUtiliti::create([
+                        'room_id' => $create->id,
+                        'utiliti_id' => $utiliti,
+                    ]);
+                }
+            }
+
+            if (isset($request->hobbys)) {
+                foreach ($request->hobbys as $hobby) {
+                    HobbyRoom::create([
+                        'room_id' => $create->id,
+                        'hobby_id' => $hobby,
+                    ]);
+                }
+            }
+
+            if (isset($request->types)) {
+                foreach ($request->types as $type) {
+                    RoomType::create([
+                        'room_id' => $create->id,
+                        'type_id' => $type,
+                    ]);
+                }
+            }
             
             DB::commit();
             return redirect()->route('rooms.index')->with('alert-success','Thêm phòng thành công!');
@@ -102,7 +145,14 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
+        $utilities = Utiliti::all();
+        $types = Type::all();
+        $hobbys = Hobby::all();
+
         $data = [
+            'utilities' => $utilities,
+            'types' => $types,
+            'hobbys' => $hobbys,
             'data_edit' => $room
         ];
 
@@ -143,6 +193,37 @@ class RoomController extends Controller
                     'description' => $request->description,
                     'price' => $request->price,
                 ]);
+            }
+
+            $room->utilities()->delete();
+            $room->hobbys()->delete();
+            $room->types()->delete();
+
+            if (isset($request->utilities)) {
+                foreach ($request->utilities as $utiliti) {
+                    RoomUtiliti::create([
+                        'room_id' => $room->id,
+                        'utiliti_id' => $utiliti,
+                    ]);
+                }
+            }
+
+            if (isset($request->hobbys)) {
+                foreach ($request->hobbys as $hobby) {
+                    HobbyRoom::create([
+                        'room_id' => $room->id,
+                        'hobby_id' => $hobby,
+                    ]);
+                }
+            }
+
+            if (isset($request->types)) {
+                foreach ($request->types as $type) {
+                    RoomType::create([
+                        'room_id' => $room->id,
+                        'type_id' => $type,
+                    ]);
+                }
             }
 
             

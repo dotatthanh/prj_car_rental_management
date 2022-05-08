@@ -31,8 +31,20 @@
                             <td>{{ auth()->guard('web')->user()->email }}</td>
                         </tr>
                         <tr>
+                            <th scope="row">Tỉnh/Thành phố :</th>
+                            <td>{{ auth()->guard('web')->user()->province->name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Quận/Huyện :</th>
+                            <td>{{ auth()->guard('web')->user()->district->name }}</td>
+                        </tr>
+                        <tr>
                             <th scope="row">Địa chỉ :</th>
                             <td>{{ auth()->guard('web')->user()->address }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Trường đại học :</th>
+                            <td>{{ auth()->guard('web')->user()->university }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Ảnh đại diện :</th>

@@ -9,6 +9,9 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\HobbyController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UtilitiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +47,9 @@ Route::middleware(['guest_website'])->group(function () {
 	Route::post('/dang-ky', [WebController::class, 'postRegister'])->name('web.post-register');
 });
 
+Route::prefix('get')->name('get.')->group(function () {
+	Route::post('district', [WebController::class, 'getDistrict'])->name('district');
+});
 
 // Admin
 Route::prefix('admin')->group(function () {
@@ -65,6 +71,9 @@ Route::prefix('admin')->group(function () {
 
 		Route::resource('roles', RoleController::class);
 		Route::resource('permissions', PermissionController::class);
+		Route::resource('types', TypeController::class);
+		Route::resource('hobbys', HobbyController::class);
+		Route::resource('utilities', UtilitiController::class);
 	});
 	require __DIR__.'/auth.php';
 });

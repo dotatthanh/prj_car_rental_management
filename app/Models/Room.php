@@ -19,4 +19,19 @@ class Room extends Model
     	'status',
         'image',
     ];
+
+    public function utilities()
+    {
+        return $this->hasMany(RoomUtiliti::class);
+    }
+
+    public function hobbys()
+    {
+        return $this->hasMany(HobbyRoom::class);
+    }
+
+    public function types()
+    {
+        return $this->hasMany(RoomType::class);
+    }
 }

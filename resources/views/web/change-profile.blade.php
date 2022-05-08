@@ -44,6 +44,12 @@
                     {!! $errors->first('birthday', '<span class="text-danger">:message</span>') !!}
                 </div>
 
+                <div class="form-group">
+                    <label for="university">Trường đại học</label>
+                    <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', auth()->guard('web')->user()->university ?? '') }}">
+                    {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
+                </div>
+
             </div>
 
             <div class="col-sm-6">
@@ -63,6 +69,26 @@
                     <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
                     <input id="phone" name="phone" type="number" class="form-control" placeholder="Số điện thoại" value="{{ old('phone', auth()->guard('web')->user()->phone ?? '') }}">
                     {!! $errors->first('phone', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="province_id">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                    <select name="province_id" id="province_id" class="form-control" onchange="getDistricts($(this).val())">
+                        @foreach ($provinces as $province)
+                        <option value="{{ $province->id }}" {{ auth()->guard('web')->user()->province_id == $province->id ? 'selected' : ''}}>{{ $province->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('province_id', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="district_id">Quận/Huyện <span class="text-danger">*</span></label>
+                    <select name="district_id" id="district_id" class="form-control">
+                        @foreach($provinces->find(auth()->guard('web')->user()->province_id)->districts as $district)
+                            <option value="{{ $district->id }}" {{ auth()->guard('web')->user()->district_id == $district->id ? 'selected' : ''}}>{{ $district->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
                 </div>
 
                 <div class="form-group">
@@ -123,6 +149,26 @@
                 }
             });
         });
+
+        function getDistricts(id) {
+            $.ajax({
+                url: "{{ route('get.district') }}",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function (respon) {
+                    let text = '';
+                    $.each( respon.districts, function( key, value ) {
+                        text += `<option value="${value.id}">${value.name}</option>`;
+                    });
+                    $('#district_id').html(text);
+                },
+                errors: function () {
+                    alert('Lỗi server chưa lấy được danh sách Quận/Huyện.')
+                }
+            })
+        }
     </script>
 @endpush
 

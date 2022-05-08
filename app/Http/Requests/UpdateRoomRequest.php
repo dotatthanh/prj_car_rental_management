@@ -33,6 +33,9 @@ class UpdateRoomRequest extends FormRequest
             'address' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
+            'utilities' => 'required',
+            'hobbys' => 'required',
+            'types' => 'required',
         ];
     }
 
@@ -51,6 +54,9 @@ class UpdateRoomRequest extends FormRequest
             'price.required' => 'Giá là trường bắt buộc.', 
             'price.numeric' => 'Giá là định dạng số.', 
             'price.min' => 'Giá không được nhỏ hơn :min.', 
+            'utilities.required' => 'Tiện ích là trường bắt buộc.', 
+            'hobbys.required' => 'Sở thích là trường bắt buộc.', 
+            'types.required' => 'Loại phòng là trường bắt buộc.', 
         ];
     }
 }

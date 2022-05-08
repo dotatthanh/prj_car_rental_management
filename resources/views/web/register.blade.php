@@ -64,6 +64,12 @@
                         </div>
                     </div>        
                 </div>
+
+                <div class="form-group">
+                    <label for="university">Trường đại học</label>
+                    <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', $data_edit->university ?? '') }}">
+                    {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
+                </div>
             </div>
 
             <div class="col-sm-6">
@@ -86,8 +92,28 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="province_id">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                    <select name="province_id" id="province_id" class="form-control" onchange="getDistricts($(this).val())">
+                        @foreach ($provinces as $province)
+                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('province_id', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="district_id">Quận/Huyện <span class="text-danger">*</span></label>
+                    <select name="district_id" id="district_id" class="form-control">
+                        @foreach($provinces->first()->districts as $districts)
+                            <option value="{{ $districts->id }}">{{ $districts->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
                     <label for="address">Địa chỉ <span class="text-danger">*</span></label>
-                    <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ" value="{{ old('address', $data_edit->address ?? '') }}">
+                    <input id="address" name="address" type="text" class="form-control" placeholder="Số nhà, Xã/Phường" value="{{ old('address', $data_edit->address ?? '') }}">
                     {!! $errors->first('address', '<span class="text-danger">:message</span>') !!}
                 </div>
             </div>
@@ -109,7 +135,7 @@
     <script src="{{ asset('libs\bootstrap-maxlength\bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.js') }}"></script>
     <!-- form advanced init -->
-    <script src="{{ asset('js\pages\form-advanced.init.js') }}"></script>
+    {{-- <script src="{{ asset('js\pages\form-advanced.init.js') }}"></script> --}}
 
     <script type="text/javascript">
         $('.docs-date').datepicker({
@@ -144,6 +170,26 @@
                 }
             });
         });
+
+        function getDistricts(id) {
+            $.ajax({
+                url: "{{ route('get.district') }}",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function (respon) {
+                    let text = '';
+                    $.each( respon.districts, function( key, value ) {
+                        text += `<option value="${value.id}">${value.name}</option>`;
+                    });
+                    $('#district_id').html(text);
+                },
+                errors: function () {
+                    alert('Lỗi server chưa lấy được danh sách Quận/Huyện.')
+                }
+            })
+        }
     </script>
 @endpush
 

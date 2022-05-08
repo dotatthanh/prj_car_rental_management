@@ -59,7 +59,14 @@
                     </div>
                 </div>        
             </div>
+
         @endif
+        
+        <div class="form-group">
+            <label for="university">Trường đại học</label>
+            <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', $data_edit->university ?? '') }}">
+            {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
+        </div>
     </div>
 
     <div class="col-sm-6">
@@ -81,6 +88,26 @@
             {!! $errors->first('phone', '<span class="error">:message</span>') !!}
         </div>
 
+         <div class="form-group">
+            <label for="province_id">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+            <select name="province_id" id="province_id" class="form-control" onchange="getDistricts($(this).val())">
+                @foreach ($provinces as $province)
+                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                @endforeach
+            </select>
+            {!! $errors->first('province_id', '<span class="text-danger">:message</span>') !!}
+        </div>
+
+        <div class="form-group">
+            <label for="district_id">Quận/Huyện <span class="text-danger">*</span></label>
+            <select name="district_id" id="district_id" class="form-control">
+                @foreach($provinces->first()->districts as $districts)
+                    <option value="{{ $districts->id }}">{{ $districts->name }}</option>
+                @endforeach
+            </select>
+            {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
+        </div>
+
         <div class="form-group">
             <label for="address">Địa chỉ <span class="text-danger">*</span></label>
             <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ" value="{{ old('address', $data_edit->address ?? '') }}">
@@ -90,4 +117,4 @@
 </div>
 
 <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Lưu lại</button>
-<a href="{{ route('patients.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>
+<a href="{{ route('customers.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>

@@ -30,9 +30,11 @@ class UpdateProfileRequest extends FormRequest
             'birthday' => 'required|date',
             'phone' => 'required|size:10',
             'address' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required',
             'email' => [
                 'required', 'max:255', 'string', 'email',
-                Rule::unique('patients')->ignore($this->id),
+                Rule::unique('customers')->ignore($this->id),
             ],
         ];
     }
@@ -53,6 +55,8 @@ class UpdateProfileRequest extends FormRequest
             'email.unique' => 'Email đã tồn tại.',
             'email.string' => 'Email phải là một chuỗi.',
             'email.max' => 'Email không được dài quá :max ký tự.',
+            'province_id.required' => 'Tỉnh/Thành phố là trường bắt buộc.',
+            'district_id.required' => 'Quận/Huyện là trường bắt buộc.',
         ];
     }
 }

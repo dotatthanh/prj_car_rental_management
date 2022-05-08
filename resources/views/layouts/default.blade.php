@@ -115,6 +115,12 @@
         <script src="{{ asset('libs\toastr\build\toastr.min.js') }}"></script>
 
         <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
             // toastr noti
             @if(Session::has('alert-success'))
                 Command: toastr["success"]("{{ Session::get('alert-success') }}")

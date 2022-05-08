@@ -74,8 +74,6 @@
             endDate: new Date(),
         });
 
-
-
         $(document).ready(function() {
             $("#show_hide_password a").on('click', function(event) {
                 event.preventDefault();
@@ -103,6 +101,26 @@
                 }
             });
         });
+
+        function getDistricts(id) {
+            $.ajax({
+                url: "{{ route('get.district') }}",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function (respon) {
+                    let text = '';
+                    $.each( respon.districts, function( key, value ) {
+                        text += `<option value="${value.id}">${value.name}</option>`;
+                    });
+                    $('#district_id').html(text);
+                },
+                errors: function () {
+                    alert('Lỗi server chưa lấy được danh sách Quận/Huyện.')
+                }
+            })
+        }
     </script>
 @endpush
 

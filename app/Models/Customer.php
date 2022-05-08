@@ -24,11 +24,24 @@ class Customer extends Authenticatable
     	'phone',
         'password',
         'email',
+        'province_id',
+        'district_id',
+        'university',
     ];
 
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 }
 

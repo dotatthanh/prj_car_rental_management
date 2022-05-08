@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
@@ -39,7 +40,13 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        $provinces = Province::all();
+
+        $data = [
+            'provinces' => $provinces,
+        ];
+
+        return view('customer.create', $data);
     }
 
     /**
@@ -68,6 +75,9 @@ class CustomerController extends Controller
                 'birthday' => date("Y-m-d", strtotime($request->birthday)),
                 'phone' => $request->phone,
                 'address' => $request->address,
+                'district_id' => $request->district_id,
+                'province_id' => $request->province_id,
+                'university' => $request->university,
                 'avatar' => $file_path,
                 'password' => bcrypt($request->password),
             ]);
@@ -103,8 +113,11 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
+        $provinces = Province::all();
+
         $data = [
-            'data_edit' => $customer
+            'data_edit' => $customer,
+            'provinces' => $provinces,
         ];
 
         return view('customer.edit', $data);
@@ -134,6 +147,9 @@ class CustomerController extends Controller
                     'birthday' => date("Y-m-d", strtotime($request->birthday)),
                     'phone' => $request->phone,
                     'address' => $request->address,
+                    'district_id' => $request->district_id,
+                    'province_id' => $request->province_id,
+                    'university' => $request->university,
                     'avatar' => $file_path,
                 ]);
             }
@@ -145,6 +161,9 @@ class CustomerController extends Controller
                     'birthday' => date("Y-m-d", strtotime($request->birthday)),
                     'phone' => $request->phone,
                     'address' => $request->address,
+                    'district_id' => $request->district_id,
+                    'province_id' => $request->province_id,
+                    'university' => $request->university,
                 ]);
             }
             
@@ -168,7 +187,7 @@ class CustomerController extends Controller
             DB::beginTransaction();
 
             if ($customer->bookings->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách lịch khám.');
+                return redirect()->back()->with('alert-error','Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách đặt thuê phòng.');
             }
 
             Customer::destroy($customer->id);

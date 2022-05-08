@@ -62,9 +62,12 @@
                                                 <th>Mã</th>
                                                 <th>Ảnh</th>
                                                 <th>Tiêu đề</th>
-                                                <th>Diện tích</th>
+                                                <th>Diện tích (m²)</th>
                                                 <th>Giá (VND)</th>
                                                 <th>Địa chỉ</th>
+                                                <th>Loại phòng</th>
+                                                <th>Tiện ích</th>
+                                                <th>Sở thích</th>
                                                 <th>Mô tả</th>
                                                 <th>Trạng thái</th>
                                                 <th class="text-center">Hành động</th>
@@ -89,7 +92,7 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body text-center">
-                                                                        <img src="{{ asset($room->image) }}" alt="">
+                                                                        <img src="{{ asset($room->image) }}" alt="" class="w-100">
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -104,6 +107,78 @@
                                                     <td>{{ $room->acreage }}</td>
                                                     <td>{{ number_format($room->price, 0, ',', '.') }}</td>
                                                     <td>{{ $room->address }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#type{{ $room->id }}">Xem</button>
+
+                                                        <div class="modal fade" id="type{{ $room->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Loại phòng</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @foreach ($room->types as $type)
+                                                                            <p>{{ $type->type->name }}</p>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#utiliti{{ $room->id }}">Xem</button>
+
+                                                        <div class="modal fade" id="utiliti{{ $room->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Tiện ích</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @foreach ($room->utilities as $utiliti)
+                                                                            <p>{{ $utiliti->utiliti->name }}</p>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hobby{{ $room->id }}">Xem</button>
+
+                                                        <div class="modal fade" id="hobby{{ $room->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Sở thích</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @foreach ($room->hobbys as $hobby)
+                                                                            <p>{{ $hobby->hobby->name }}</p>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#description{{ $room->id }}">Xem</button>
 
@@ -126,6 +201,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    
                                                     <td>
                                                         @if ($room->status)
                                                             <label for="" class="btn btn-success">Đã thuê</label>

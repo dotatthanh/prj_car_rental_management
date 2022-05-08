@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use App\Models\Room;
 use App\Models\Customer;
+use App\Models\Province;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
@@ -56,7 +57,13 @@ class WebController extends Controller
 
     public function register()
     {
-    	return view('web.register');
+        $provinces = Province::all();
+
+        $data = [
+            'provinces' => $provinces,
+        ];
+
+    	return view('web.register', $data);
     }
 
     public function postRegister(StoreCustomerRequest $request)
@@ -81,6 +88,9 @@ class WebController extends Controller
                 'address' => $request->address,
                 'avatar' => $file_path,
                 'password' => Hash::make($request->password),
+                'province_id' => $request->province_id,
+                'district_id' => $request->district_id,
+                'university' => $request->university,
             ]);
 
             $create->update([
@@ -100,7 +110,13 @@ class WebController extends Controller
     }
 
     public function changeProfile() {
-        return view('web.change-profile');
+        $provinces = Province::all();
+
+        $data = [
+            'provinces' => $provinces,
+        ];
+
+        return view('web.change-profile', $data);
     }
 
     public function postChangeProfile(UpdateProfileRequest $request, $id)
@@ -123,6 +139,9 @@ class WebController extends Controller
                 'birthday' => date("Y-m-d", strtotime($request->birthday)),
                 'phone' => $request->phone,
                 'address' => $request->address,
+                'province_id' => $request->province_id,
+                'district_id' => $request->district_id,
+                'university' => $request->university,
                 'avatar' => $file_path,
             ]);
             
@@ -236,5 +255,13 @@ class WebController extends Controller
         ];
 
         return view('web.room-detail', $data);
+    }
+
+    public function getDistrict(Request $request)
+    {
+        $respon = [
+            'districts' => Province::findOrFail($request->id)->districts()->orderBy('name')->get(),
+        ];
+        return response()->json($respon);
     }
 }

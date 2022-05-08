@@ -30,6 +30,8 @@ class StoreCustomerRequest extends FormRequest
             'birthday' => 'required|date',
             'phone' => 'required|size:10',
             'address' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required',
             'password' => 'required|confirmed|min:8|string',
             'email' => [
                 'required', 'max:255', 'string', 'email',
@@ -59,6 +61,8 @@ class StoreCustomerRequest extends FormRequest
             'password.confirmed' => 'Xác nhận mật khẩu không chính xác!',
             'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự!',
             'password.string' => 'Mật khẩu phải là một chuỗi',
+            'province_id.required' => 'Tỉnh/Thành phố là trường bắt buộc!',
+            'district_id.required' => 'Quận/Huyện là trường bắt buộc!',
         ];
     }
 }
