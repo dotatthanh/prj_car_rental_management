@@ -15,9 +15,11 @@ class CreateHobbyRoomsTable extends Migration
     {
         Schema::create('hobby_rooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('room_id');
-            $table->integer('hobby_id');
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('hobby_id');
             $table->timestamps();
+            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('hobby_id')->references('id')->on('hobbys');
         });
     }
 

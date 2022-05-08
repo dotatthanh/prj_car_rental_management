@@ -15,9 +15,11 @@ class CreateRoomUtilitisTable extends Migration
     {
         Schema::create('room_utilitis', function (Blueprint $table) {
             $table->id();
-            $table->integer('room_id');
-            $table->integer('utiliti_id');
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('utiliti_id');
             $table->timestamps();
+            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('utiliti_id')->references('id')->on('utilities');
         });
     }
 

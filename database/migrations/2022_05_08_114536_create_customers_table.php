@@ -16,8 +16,8 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('university')->nullable();
-            $table->string('district_id');
-            $table->string('province_id');
+            $table->unsignedBigInteger('district_id');
+            $table->unsignedBigInteger('province_id');
             $table->string('address');
             $table->string('code');
             $table->string('name');
@@ -28,6 +28,8 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->timestamps();
+            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('province_id')->references('id')->on('provinces');
         });
     }
 
