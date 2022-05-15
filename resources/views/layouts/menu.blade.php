@@ -45,6 +45,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{ route('universities.index') }}" class=" waves-effect">
+                            <i class="bx bx-calendar"></i>
+                            <span>Trường đại học</span>
+                        </a>
+                    </li>
+
                 @can('Xem danh sách phòng')
                 <li>
                     <a href="{{ route('rooms.index') }}" class=" waves-effect">

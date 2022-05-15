@@ -18,4 +18,9 @@ class RoomUtiliti extends Model
     {
         return $this->belongsTo(Utiliti::class);
     }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

@@ -99,10 +99,8 @@
         @endif
         </li> --}}
     </ul>
-    <div class="container">
+    
         @yield('content')
-
-    </div>
 
     <footer>
 

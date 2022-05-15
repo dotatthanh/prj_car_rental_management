@@ -3,6 +3,7 @@
 @section('title') Đổi mật khẩu @endsection
 
 @section('content')
+<div class="container">
     <h2 class="title">ĐỔI MẬT </h2>
     <form action="{{ route('web.post-change-password', auth()->guard('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -48,6 +49,7 @@
             </div>  
         </div>
     </form>
+</div>
 @endsection
 
 @push('js')

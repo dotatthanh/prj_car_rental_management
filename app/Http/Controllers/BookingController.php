@@ -15,11 +15,31 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-        $bookings = Booking::paginate(10);
-
-        if ($request->search) {
-            $bookings = Booking::where('phone', 'like', '%'.$request->search.'%')->paginate(10);
-            $bookings->appends(['search' => $request->search]);
+        if (auth()->guard('admin')->user()->hasRole('Admin')) {
+            $bookings = Booking::paginate(10);
+            if ($request->search) {
+                $bookings = Booking::whereHas('customer', function ($query) use ($request) {
+                    $query->where('phone', 'like', '%'.$request->search.'%');
+                })
+                ->paginate(10);
+                $bookings->appends(['search' => $request->search]);
+            }
+        }
+        else {
+            $bookings = Booking::whereHas('room', function ($query) {
+                $query->where('user_id', auth()->guard('admin')->user()->id);
+            })
+            ->paginate(10);
+            if ($request->search) {
+                $bookings = Booking::whereHas('room', function ($query) {
+                    $query->where('user_id', auth()->guard('admin')->user()->id);
+                })
+                ->whereHas('customer', function ($query) use ($request) {
+                    $query->where('phone', 'like', '%'.$request->search.'%');
+                })
+                ->paginate(10);
+                $bookings->appends(['search' => $request->search]);
+            }
         }
 
         $data = [
@@ -102,13 +122,21 @@ class BookingController extends Controller
             
             $booking = Booking::find($id);
 
+            if ($booking->room->hired == $booking->room->amount)
+            {
+                return redirect()->back()->with('alert-error','Phòng này đã hết chỗ!');
+            }
+
             $booking->update([
                 'status' => 1,
             ]);
 
-            $booking->room->update([
-                'status' => 1,
-            ]);
+            if ($booking->room->hired == $booking->room->amount)
+            {
+                $booking->room->update([
+                    'status' => 1,
+                ]);
+            }
 
             DB::commit();
             return redirect()->back()->with('alert-success','Duyệt lịch thành công!');

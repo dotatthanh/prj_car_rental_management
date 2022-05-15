@@ -3,6 +3,7 @@
 @section('title') Đăng nhập @endsection
 
 @section('content')
+<div class="container">
     <h2 class="title">ĐĂNG NHẬP</h2>
     <form action="{{ route('web.post-login') }}" method="POST">
         @csrf
@@ -29,6 +30,7 @@
             </div>  
         </div>
     </form>
+</div>
 @endsection
 
 @push('js')

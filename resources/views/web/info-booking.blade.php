@@ -3,6 +3,7 @@
 @section('title') Thông tin đặt thuê phòng @endsection
 
 @section('content')
+<div class="container">
     <div class="row">
         <h2 class="title">THÔNG TIN ĐẶT THUÊ PHÒNG</h2>
 
@@ -52,6 +53,7 @@
         </table>
         
     </div>
+</div>
 @endsection
 
 @push('js')

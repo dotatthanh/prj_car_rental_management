@@ -349,3 +349,53 @@ footer {
 .btn-logout:focus {
   outline: none;
 }
+
+.search-index {
+    font-size: 20px;
+}
+.search-index .title {
+    font-size: 24px;
+    background: #ebebeb;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    margin-bottom : 0;
+    padding: 22px 0;
+    border-bottom: 1px solid #fff;
+}
+.search-index ul .title-search a{
+  display: block;
+}
+.search-index ul .title-search{
+    background: #ebebeb;
+    display: block;
+    border-bottom: 1px solid #fff;
+}
+.search-index ul>li{
+    padding: 22px 32px;
+}
+.search-index ul>li ul li{
+    padding: 0 0;
+}
+.search-index ul .title-search ul {
+    display: none;
+    margin-top: 10px;
+}
+.search-index ul .title-search a i{
+    float: right;
+    font-size: 30px;
+}
+
+.search-index button {
+    background: #ebebeb;
+    text-align: center;
+    width: 100%;
+    color: #0000ff91;
+    padding: 25px 0;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    cursor: pointer;
+}
+
+.search-index .form-check-input {
+  margin-top: 9px;
+}

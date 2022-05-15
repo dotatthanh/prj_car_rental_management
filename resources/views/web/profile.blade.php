@@ -3,6 +3,7 @@
 @section('title') Đăng ký @endsection
 
 @section('content')
+<div class="container">
     <h2 class="title">THÔNG TIN CÁ NHÂN</h2>
     <form action="" method="POST">
         <div class="row">
@@ -44,7 +45,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Trường đại học :</th>
-                            <td>{{ auth()->guard('web')->user()->university }}</td>
+                            <td>{{ auth()->guard('web')->user()->university_id ? auth()->guard('web')->user()->university->name : ''}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Ảnh đại diện :</th>
@@ -61,6 +62,7 @@
             </div>  
         </div>
     </form>
+</div>
 @endsection
 
 @push('js')

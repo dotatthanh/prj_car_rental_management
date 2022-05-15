@@ -3,6 +3,7 @@
 @section('title') Thay đổi thông tin các nhân @endsection
 
 @section('content')
+<div class="container">
     <h2 class="title">THAY ĐỔI THÔNG TIN CÁ NHÂN</h2>
     <form action="{{ route('web.post-change-profile', auth()->guard('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -45,9 +46,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="university">Trường đại học</label>
-                    <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', auth()->guard('web')->user()->university ?? '') }}">
-                    {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
+                    <label for="university_id">Trường đại học</label>
+                    <select name="university_id" id="university_id" class="form-control">
+                        <option value="">Chọn trường đại học</option>
+                        @foreach ($universities as $university)
+                        <option value="{{ $university->id }}" {{ auth()->guard('web')->user()->university_id == $university->id ? 'selected' : '' }}>{{ $university->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('university_id', '<span class="text-danger">:message</span>') !!}
                 </div>
 
             </div>
@@ -103,6 +109,7 @@
             </div>  
         </div>
     </form>
+</div>
 @endsection
 
 @push('js')

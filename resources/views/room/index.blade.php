@@ -63,8 +63,11 @@
                                                 <th>Ảnh</th>
                                                 <th>Tiêu đề</th>
                                                 <th>Diện tích (m²)</th>
+                                                <th>Số người</th>
                                                 <th>Giá (VND)</th>
                                                 <th>Địa chỉ</th>
+                                                <th>Quận/Huyện</th>
+                                                <th>Trường đại học</th>
                                                 <th>Loại phòng</th>
                                                 <th>Tiện ích</th>
                                                 <th>Sở thích</th>
@@ -105,8 +108,11 @@
                                                         {{ $room->name }}
                                                     </td>
                                                     <td>{{ $room->acreage }}</td>
+                                                    <td>{{ $room->hired }}/{{ $room->amount }}</td>
                                                     <td>{{ number_format($room->price, 0, ',', '.') }}</td>
                                                     <td>{{ $room->address }}</td>
+                                                    <td>{{ $room->district->name }}</td>
+                                                    <td>{{ $room->university->name }}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#type{{ $room->id }}">Xem</button>
 

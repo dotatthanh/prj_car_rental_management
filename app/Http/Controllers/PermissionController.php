@@ -105,8 +105,10 @@ class PermissionController extends Controller
 
             $role->permissions()->detach();
 
-            foreach ($request->permissions as $key => $value) {
-                $role->givePermissionTo($key);
+            if ($request->permissions) {
+                foreach ($request->permissions as $key => $value) {
+                    $role->givePermissionTo($key);
+                }
             }
             
             DB::commit();

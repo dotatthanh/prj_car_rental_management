@@ -12,6 +12,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UtilitiController;
+use App\Http\Controllers\UniversityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::prefix('admin')->group(function () {
 		Route::resource('types', TypeController::class);
 		Route::resource('hobbys', HobbyController::class);
 		Route::resource('utilities', UtilitiController::class);
+		Route::resource('universities', UniversityController::class);
 	});
 	require __DIR__.'/auth.php';
 });

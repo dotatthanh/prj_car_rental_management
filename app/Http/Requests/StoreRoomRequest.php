@@ -27,7 +27,6 @@ class StoreRoomRequest extends FormRequest
         return [
             'name' => [
                 'required', 'max:255',
-                // Rule::unique('rooms')->ignore($this->room),
             ],
             'acreage' => 'required|numeric|min:0',
             'address' => 'required|max:255',
@@ -37,6 +36,9 @@ class StoreRoomRequest extends FormRequest
             'utilities' => 'required',
             'hobbys' => 'required',
             'types' => 'required',
+            'amount' => 'required',
+            'university_id' => 'required',
+            'district_id' => 'required',
         ];
     }
 
@@ -48,7 +50,6 @@ class StoreRoomRequest extends FormRequest
             'acreage.min' => 'Diện tích không được nhỏ hơn :min.', 
             'name.required' => 'Tiêu đề là trường bắt buộc.', 
             'name.max' => 'Tiêu đề không được dài quá :max ký tự.', 
-            // 'name.unique' => 'Tiêu đề đã tồn tại.', 
             'address.required' => 'Địa chỉ là trường bắt buộc.', 
             'address.max' => 'Địa chỉ không được dài quá :max ký tự.', 
             'description.required' => 'Mô tả là trường bắt buộc.', 
@@ -60,6 +61,9 @@ class StoreRoomRequest extends FormRequest
             'utilities.required' => 'Tiện ích là trường bắt buộc.', 
             'hobbys.required' => 'Sở thích là trường bắt buộc.', 
             'types.required' => 'Loại phòng là trường bắt buộc.', 
+            'amount.required' => 'Số lượng người là trường bắt buộc.', 
+            'university_id.required' => 'Trường đại học là trường bắt buộc.', 
+            'district_id.required' => 'Quận/Huyện là trường bắt buộc.', 
         ];
     }
 }

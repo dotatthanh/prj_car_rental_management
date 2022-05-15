@@ -5,17 +5,24 @@
         <p class="card-title-desc">Điền tất cả thông tin bên dưới</p>
         @csrf
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="name">Tiêu đề <span class="text-danger">*</span></label>
                     <input id="name" name="name" type="text" class="form-control" placeholder="Tiêu đề" value="{{ old('name', $data_edit->name ?? '') }}">
                     {!! $errors->first('name', '<span class="error">:message</span>') !!}
                 </div>
-
+            </div>
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="acreage">Diện tích(m²) <span class="text-danger">*</span></label>
                     <input id="acreage" name="acreage" type="number" class="form-control" placeholder="Diện tích" value="{{ old('acreage', $data_edit->acreage ?? '') }}">
                     {!! $errors->first('acreage', '<span class="error">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Số lượng người <span class="text-danger">*</span></label>
+                    <input id="amount" name="amount" type="number" class="form-control" placeholder="Số lượng người" value="{{ old('amount', $data_edit->amount ?? '') }}">
+                    {!! $errors->first('amount', '<span class="error">:message</span>') !!}
                 </div>
 
                 <div class="form-group">
@@ -37,6 +44,27 @@
                     <label for="address">Địa chỉ <span class="text-danger">*</span></label>
                     <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ" value="{{ old('address', $data_edit->address ?? '') }}">
                     {!! $errors->first('address', '<span class="error">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="district_id">Quận/Huyện <span class="text-danger">*</span></label>
+                    <select name="district_id" id="district_id" class="form-control select2">
+                        @foreach ($districts as $district)
+                        <option value="{{ $district->id }}">{{ $district->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="university_id">Tên trường đại học <span class="text-danger">*</span></label>
+                    <select class="form-control select2" name="university_id">
+                        <option value="">Chọn trường đại học</option>
+                        @foreach ($universities as $university_id)
+                        <option value="{{ $university_id->id }}" {{ isset($data_edit->university_id) && $data_edit->university_id == $university_id->id ? 'selected' : '' }}>{{ $university_id->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('university_id', '<span class="error">:message</span>') !!}
                 </div>
 
             </div>

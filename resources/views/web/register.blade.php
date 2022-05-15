@@ -3,6 +3,7 @@
 @section('title') Đăng ký @endsection
 
 @section('content')
+<div class="container">
     <h2 class="title">ĐĂNG KÝ</h2>
     <form action="{{ route('web.post-register') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -65,31 +66,7 @@
                     </div>        
                 </div>
 
-                <div class="form-group">
-                    <label for="university">Trường đại học</label>
-                    <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', $data_edit->university ?? '') }}">
-                    {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="email">Email <span class="text-danger">*</span></label>
-                    <input id="email" name="email" type="text" class="form-control" placeholder="Email" value="{{ old('email', $data_edit->email ?? '') }}">
-                    {!! $errors->first('email', '<span class="text-danger">:message</span>') !!}
-                </div>
-
-                <div class="form-group">
-                    <label for="avatar">Ảnh đại diện</label>
-                    <input id="avatar" name="avatar" type="file" class="form-control">
-                    {!! $errors->first('avatar', '<span class="text-danger">:message</span>') !!}
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
-                    <input id="phone" name="phone" type="number" class="form-control" placeholder="Số điện thoại" value="{{ old('phone', $data_edit->phone ?? '') }}">
-                    {!! $errors->first('phone', '<span class="text-danger">:message</span>') !!}
-                </div>
+                <h2 class="mb-2 text-center">Thông tin tìm phòng</h2>
 
                 <div class="form-group">
                     <label for="province_id">Tỉnh/Thành phố <span class="text-danger">*</span></label>
@@ -112,6 +89,38 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="university_id">Trường đại học</label>
+                    <select name="university_id" id="university_id" class="form-control">
+                        <option value="">Chọn trường đại học</option>
+                        @foreach ($universities as $university)
+                        <option value="{{ $university->id }}">{{ $university->name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('university_id', '<span class="text-danger">:message</span>') !!}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="email">Email <span class="text-danger">*</span></label>
+                    <input id="email" name="email" type="text" class="form-control" placeholder="Email" value="{{ old('email', $data_edit->email ?? '') }}">
+                    {!! $errors->first('email', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="avatar">Ảnh đại diện</label>
+                    <input id="avatar" name="avatar" type="file" class="form-control">
+                    {!! $errors->first('avatar', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
+                    <input id="phone" name="phone" type="number" class="form-control" placeholder="Số điện thoại" value="{{ old('phone', $data_edit->phone ?? '') }}">
+                    {!! $errors->first('phone', '<span class="text-danger">:message</span>') !!}
+                </div>
+
+
+                <div class="form-group">
                     <label for="address">Địa chỉ <span class="text-danger">*</span></label>
                     <input id="address" name="address" type="text" class="form-control" placeholder="Số nhà, Xã/Phường" value="{{ old('address', $data_edit->address ?? '') }}">
                     {!! $errors->first('address', '<span class="text-danger">:message</span>') !!}
@@ -124,6 +133,7 @@
             </div>  
         </div>
     </form>
+</div>
 @endsection
 
 @push('js')

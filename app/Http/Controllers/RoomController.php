@@ -8,7 +8,9 @@ use App\Models\Hobby;
 use App\Models\RoomUtiliti;
 use App\Models\RoomType;
 use App\Models\HobbyRoom;
+use App\Models\University;
 use App\Models\Type;
+use App\Models\District;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
@@ -24,11 +26,23 @@ class RoomController extends Controller
      */
     public function index(Request $request)
     {
-        $rooms = Room::paginate(10);
+        
 
-        if ($request->search) {
-            $rooms = Room::where('name', 'like', '%'.$request->search.'%')->paginate(10);
-            $rooms->appends(['search' => $request->search]);
+        if (auth()->guard('admin')->user()->hasRole('Admin')) {
+            $rooms = Room::paginate(10);
+
+            if ($request->search) {
+                $rooms = Room::where('name', 'like', '%'.$request->search.'%')->paginate(10);
+                $rooms->appends(['search' => $request->search]);
+            }
+        }
+        else {
+            $rooms = Room::where('user_id', auth()->guard('admin')->user()->id)->paginate(10);
+
+            if ($request->search) {
+                $rooms = Room::where('name', 'like', '%'.$request->search.'%')->paginate(10);
+                $rooms->appends(['search' => $request->search]);
+            }
         }
 
         $data = [
@@ -48,11 +62,15 @@ class RoomController extends Controller
         $utilities = Utiliti::all();
         $types = Type::all();
         $hobbys = Hobby::all();
+        $universities = University::all();
+        $districts = District::all();
 
         $data = [
             'utilities' => $utilities,
             'types' => $types,
             'hobbys' => $hobbys,
+            'universities' => $universities,
+            'districts' => $districts,
         ];
 
         return view('room.create', $data);
@@ -83,8 +101,12 @@ class RoomController extends Controller
                 'address' => $request->address,
                 'description' => $request->description,
                 'price' => $request->price,
+                'amount' => $request->amount,
                 'image' => $file_path,
                 'status' => 0,
+                'university_id' => $request->university_id,
+                'user_id' => auth()->id(),
+                'district_id' => $request->district_id,
             ]);
 
             $create->update([
@@ -147,12 +169,16 @@ class RoomController extends Controller
     {
         $utilities = Utiliti::all();
         $types = Type::all();
+        $universities = University::all();
         $hobbys = Hobby::all();
+        $districts = District::all();
 
         $data = [
             'utilities' => $utilities,
             'types' => $types,
             'hobbys' => $hobbys,
+            'universities' => $universities,
+            'districts' => $districts,
             'data_edit' => $room
         ];
 
@@ -182,7 +208,10 @@ class RoomController extends Controller
                     'address' => $request->address,
                     'description' => $request->description,
                     'price' => $request->price,
+                    'amount' => $request->amount,
+                    'university_id' => $request->university_id,
                     'image' => $file_path,
+                    'district_id' => $request->district_id,
                 ]);
             }
             else {
@@ -192,6 +221,9 @@ class RoomController extends Controller
                     'address' => $request->address,
                     'description' => $request->description,
                     'price' => $request->price,
+                    'amount' => $request->amount,
+                    'university_id' => $request->university_id,
+                    'district_id' => $request->district_id,
                 ]);
             }
 
@@ -250,6 +282,9 @@ class RoomController extends Controller
                 return redirect()->back()->with('alert-error','Xóa phòng thất bại! Phòng '.$room->name.' đang có người thuê.');
             }
 
+            $room->utilities()->delete();
+            $room->hobbys()->delete();
+            $room->types()->delete();
             $room->destroy($room->id);
             
             DB::commit();
