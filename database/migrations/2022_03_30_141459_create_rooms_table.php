@@ -26,8 +26,10 @@ class CreateRoomsTable extends Migration
             $table->integer('amount');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('district_id');
+            $table->unsignedBigInteger('university_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('university_id')->references('id')->on('universities');
             $table->timestamps();
         });
     }
