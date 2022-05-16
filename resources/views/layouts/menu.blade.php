@@ -24,33 +24,41 @@
                     </li>
                 @endcan
 
+                @can('Xem danh sách tiện ích')
                     <li>
                         <a href="{{ route('utilities.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Tiện ích</span>
                         </a>
                     </li>
+                @endcan
 
+                @can('Xem danh sách sở thích')
                     <li>
                         <a href="{{ route('hobbys.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Sở thích</span>
                         </a>
                     </li>
+                @endcan
 
+                @can('Xem danh sách loại phòng')
                     <li>
                         <a href="{{ route('types.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Loại phòng</span>
                         </a>
                     </li>
+                @endcan
 
+                @can('Xem danh sách trường đại học')
                     <li>
                         <a href="{{ route('universities.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
                             <span>Trường đại học</span>
                         </a>
                     </li>
+                @endcan
 
                 @can('Xem danh sách phòng')
                 <li>
