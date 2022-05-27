@@ -353,4 +353,15 @@ class WebController extends Controller
         ];
         return response()->json($respon);
     }
+
+    public function blog()
+    {
+        return view('web.blog');
+    }
+
+    public function blogdetail()
+    {
+        return view('web.blog-detail');
+    }
+    
 }

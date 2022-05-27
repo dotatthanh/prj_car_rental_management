@@ -111,6 +111,10 @@
                                 </li>
                             </ul>
                         </li>
+                        <!-- =========================== Tìm theo khu vực========================-->
+                        
+
+
                         <li class="title-search">
                             <a href="javascript:void(0)" class="dropdown-item-1">Loại phòng <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                             <ul>
@@ -168,11 +172,11 @@
         </div>
 
         <div class="col-sm-3">
-            <h2 class="title">GỢI Ý</h2>
+            <h2 class="title">GỢI Ý PHÒNG</h2>
             <div class="row">
                 @foreach ($suggests as $suggest)
                 <div class="col-sm-12 mb-3">
-                    <a href="{{ route('web.room-detail', $suggest->id) }}" class="c-img hv-light"><img src="{{ asset($suggest->image) }}" alt=""></a>
+                    <a href="{{ route('web.room-detail', $suggest->id) }}" class="c-img hv-light"><img src="{{ asset($suggest->image) }}" alt="image_1"></a>
                     <a href="{{ route('web.room-detail', $suggest->id) }}" class="font-weight-bold font-size-20">{{ $suggest->name }}</a>
                     <p class="text-danger">Diện tích: {{ $suggest->acreage }}m²</p>
                     <p class="text-success">Số lượng người: {{ $suggest->hired }}/{{ $suggest->amount }}</p>
@@ -219,6 +223,11 @@
     </script>
 @endpush
 
+<style>
+    .image_1{
+        width: 300px;
+    }
+</style>
 @push('css')
     <!-- select2 css -->
     <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
