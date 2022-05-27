@@ -111,7 +111,7 @@
                                                     <td>{{ $room->hired }}/{{ $room->amount }}</td>
                                                     <td>{{ number_format($room->price, 0, ',', '.') }}</td>
                                                     <td>{{ $room->address }}</td>
-                                                    <td>{{ $room->district->name }}</td>
+                                                    <td>{{ $room->district ? $room->district->name : '' }}</td>
                                                     <td>{{ $room->university->name }}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#type{{ $room->id }}">Xem</button>

@@ -26,8 +26,6 @@ class RoomController extends Controller
      */
     public function index(Request $request)
     {
-        
-
         if (auth()->guard('admin')->user()->hasRole('Admin')) {
             $rooms = Room::paginate(10);
 
@@ -279,6 +277,10 @@ class RoomController extends Controller
             DB::beginTransaction();
 
             if ($room->status == 1) {
+                return redirect()->back()->with('alert-error','Xóa phòng thất bại! Phòng '.$room->name.' đang có người thuê.');
+            }
+
+            if ($room->bookings->count() > 0) {
                 return redirect()->back()->with('alert-error','Xóa phòng thất bại! Phòng '.$room->name.' đang có người thuê.');
             }
 
