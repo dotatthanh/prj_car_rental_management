@@ -14,4 +14,9 @@ class Utiliti extends Model
     protected $fillable = [
     	'name',
     ];
+
+    public function roomUtilities()
+    {
+        return $this->hasMany(RoomUtiliti::class);
+    }
 }

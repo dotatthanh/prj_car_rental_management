@@ -100,7 +100,7 @@
                                                     <td>{{ $customer->province->name }}</td>
                                                     <td>{{ $customer->district->name }}</td>
                                                     <td>{{ $customer->address }}</td>
-                                                    <td>{{ $customer->university->name }}</td>
+                                                    <td>{{ $customer->university ? $customer->university->name : '' }}</td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
                                                             {{-- @can('Chỉnh sửa khách hàng')

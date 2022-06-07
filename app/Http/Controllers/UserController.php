@@ -199,14 +199,8 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            if ($user->healthCertifications->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có giấy khám bệnh.');
-            }
-            elseif ($user->serviceVouchers->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có phiếu dịch vụ.');
-            }
-            elseif ($user->prescriptions->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có đơn thuốc.');
+            if ($user->rooms->count() > 0) {
+                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có phòng.');
             }
 
             $user->roles()->detach();

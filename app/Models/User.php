@@ -51,18 +51,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function healthCertifications()
+    public function rooms()
     {
-        return $this->hasMany(HealthCertification::class);
-    }
-
-    public function prescriptions()
-    {
-        return $this->hasMany(Prescription::class);
-    }
-
-    public function serviceVouchers()
-    {
-        return $this->hasMany(ServiceVoucher::class);
+        return $this->hasMany(Room::class);
     }
 }

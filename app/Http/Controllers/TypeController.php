@@ -124,9 +124,9 @@ class TypeController extends Controller
         try {
             DB::beginTransaction();
 
-            // if ($type->medicines->count() > 0) {
-            //     return redirect()->back()->with('alert-error','Xóa loại phòng thất bại! Loại phòng '.$type->name.' đang có thuốc.');
-            // }
+            if ($type->roomTypes->count() > 0) {
+                return redirect()->back()->with('alert-error','Xóa loại phòng thất bại! Loại phòng '.$type->name.' đang thuộc các phòng.');
+            }
 
             $type->destroy($type->id);
             

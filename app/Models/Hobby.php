@@ -14,4 +14,9 @@ class Hobby extends Model
     protected $fillable = [
     	'name',
     ];
+
+    public function hobbyRooms()
+    {
+        return $this->hasMany(HobbyRoom::class);
+    }
 }

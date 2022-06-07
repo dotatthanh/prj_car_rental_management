@@ -56,10 +56,10 @@ class UtilitiController extends Controller
             ]);
             
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Thêm sở thích thành công!');
+            return redirect()->route('utilities.index')->with('alert-success','Thêm tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm sở thích thất bại!');
+            return redirect()->back()->with('alert-error','Thêm tiện ích thất bại!');
         }
     }
 
@@ -106,10 +106,10 @@ class UtilitiController extends Controller
             ]);
             
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Sửa sở thích thành công!');
+            return redirect()->route('utilities.index')->with('alert-success','Sửa tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa sở thích thất bại!');
+            return redirect()->back()->with('alert-error','Sửa tiện ích thất bại!');
         }
     }
 
@@ -124,17 +124,17 @@ class UtilitiController extends Controller
         try {
             DB::beginTransaction();
 
-            // if ($utility->medicines->count() > 0) {
-            //     return redirect()->back()->with('alert-error','Xóa sở thích thất bại! sở thích '.$utility->name.' đang có thuốc.');
-            // }
+            if ($utility->roomUtilities->count() > 0) {
+                return redirect()->back()->with('alert-error','Xóa tiện ích thất bại! Tiện ích '.$utility->name.' đang thuộc các phòng.');
+            }
 
             $utility->destroy($utility->id);
             
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Xóa sở thích thành công!');
+            return redirect()->route('utilities.index')->with('alert-success','Xóa tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa sở thích thất bại!');
+            return redirect()->back()->with('alert-error','Xóa tiện ích thất bại!');
         }
     }
 }
