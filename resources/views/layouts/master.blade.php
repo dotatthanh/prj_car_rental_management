@@ -242,6 +242,7 @@ footer{
      display: flex;
      justify-content: space-between;
      flex-wrap: wrap;
+     top : 250px;
  }
 footer .container{
      display: flex;

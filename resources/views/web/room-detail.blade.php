@@ -15,7 +15,7 @@
         <div class="col-6" style="padding : 20px;" >
             <span class="icon-nav-home-fill"></span>
             <h2 class="font-size-20">Thông tin phòng</h2>
-            <h5 class="font-size-24 font-weight-bold d-block">{{ $room->name }}</h5>
+            <h5 class="RoomName" style="width:600px;">{{ $room->name }}</h5>
 
             <div class="row">
                 <div class="col-sm-6">
@@ -28,7 +28,8 @@
            <div style= " position: absolute; right: -800px; top: 0px; padding : 20px;">
                     <div style=" width : 400px">
                         <h2  style="font-size: 30px;">Thông tin chủ phòng</h2>
-                        <p><i>{{$room->user->avatar}}</i>Chủ phòng : {{ $room->user->name }}</p>
+                        
+                        <p>Chủ phòng : {{ $room->user->name }}</p>
                         @if (auth()->guard('web')->user())
                             <p>SĐT: {{ $room->user->phone }}</p>
                         @endif
@@ -205,6 +206,11 @@
         padding : 30px;
     }
     
+    .RoomName{
+        font-size: 21px;
+        color: #333333;
+        letter-spacing: 0;
+    }
 </style>
 
 
