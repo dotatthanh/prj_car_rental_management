@@ -149,8 +149,10 @@
 
                     </ul>
 
-                    <button class="" type="submit">Áp dụng</button>
-                    {{-- <button class="btn btn-primary" type="reset">Reset</button> --}}
+                    <div class="d-flex">
+                        <button class="reset" type="reset">Reset</button>
+                        <button class="apply" type="submit">Áp dụng</button>
+                    </div>
                 </form>
             </div>
         </div>

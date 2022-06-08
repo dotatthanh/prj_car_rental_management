@@ -391,9 +391,17 @@ footer {
     width: 100%;
     color: #0000ff91;
     padding: 25px 0;
-    border-bottom-left-radius: 35px;
-    border-bottom-right-radius: 35px;
     cursor: pointer;
+}
+
+.search-index button.reset {
+    border-bottom-left-radius: 35px;
+    border-right: 1px solid #fff;
+}
+
+.search-index button.apply {
+    border-bottom-right-radius: 35px;
+    border-left: 1px solid #fff;
 }
 
 .search-index .form-check-input {
