@@ -22,9 +22,9 @@
                     </div>
 
                     <div class="form-group">
-                        <h2>Loại phòng</h2>
+                        <h2>Loại xe</h2>
                         <select name="types[]" id="types" class="form-control select2" multiple="">
-                            <option value="">Chọn loại phòng</option>
+                            <option value="">Chọn loại xe</option>
                             @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
@@ -116,7 +116,7 @@
 
 
                         <li class="title-search">
-                            <a href="javascript:void(0)" class="dropdown-item-1">Loại phòng <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)" class="dropdown-item-1">Loại xe <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                             <ul>
                                 <li>
                                     @foreach ($types as $type)
@@ -158,14 +158,14 @@
         </div>
 
         <div class="col-sm-6">
-            <h2 class="title">PHÒNG</h2>
+            <h2 class="title">xe</h2>
             <div class="row">
                 @foreach ($rooms as $room)
                     <div class="col-sm-4 mb-3">
                         <a href="{{ route('web.room-detail', $room->id) }}" class="c-img hv-light"><img src="{{ asset($room->image) }}" alt=""></a>
                         <a href="{{ route('web.room-detail', $room->id) }}" class="font-weight-bold font-size-20">{{ $room->name }}</a>
-                        <p class="text-danger">Diện tích: {{ $room->acreage }}m²</p>
-                        <p class="text-success">Số lượng người: {{ $room->hired }}/{{ $room->amount }}</p>
+                        <p class="text-danger">Dung tích: {{ $room->acreage }}m²</p>
+                        <p class="text-success">Số lượng: {{ $room->hired }}/{{ $room->amount }}</p>
                         <p class="text-danger">Giá: {{ number_format($room->price, 0, ',', '.') }} VND</p>
                         <p>Địa chỉ: {{ $room->address }}</p>
                     </div>
@@ -174,14 +174,14 @@
         </div>
 
         <div class="col-sm-3">
-            <h2 class="title">GỢI Ý PHÒNG</h2>
+            <h2 class="title">GỢI Ý xe</h2>
             <div class="row">
                 @foreach ($suggests as $suggest)
                 <div class="col-sm-12 mb-3">
                     <a href="{{ route('web.room-detail', $suggest->id) }}" class="c-img hv-light"><img src="{{ asset($suggest->image) }}" alt="image_1"></a>
                     <a href="{{ route('web.room-detail', $suggest->id) }}" class="font-weight-bold font-size-20">{{ $suggest->name }}</a>
-                    <p class="text-danger">Diện tích: {{ $suggest->acreage }}m²</p>
-                    <p class="text-success">Số lượng người: {{ $suggest->hired }}/{{ $suggest->amount }}</p>
+                    <p class="text-danger">Dung tích: {{ $suggest->acreage }}m²</p>
+                    <p class="text-success">Số lượng: {{ $suggest->hired }}/{{ $suggest->amount }}</p>
                     <p class="text-danger">Giá: {{ number_format($suggest->price, 0, ',', '.') }} VND</p>
                     <p>Địa chỉ: {{ $suggest->address }}</p>
                 </div>

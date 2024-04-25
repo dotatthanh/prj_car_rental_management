@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý loại phòng @endsection
+@section('title') Quản lý loại xe @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách loại phòng</h4>
+                            <h4 class="mb-0 font-size-18">Danh sách loại xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách loại phòng</li>
+                                    <li class="breadcrumb-item active">Danh sách loại xe</li>
                                 </ol>
                             </div>
 
@@ -35,7 +35,7 @@
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Nhập tên loại phòng">
+                                                    <input type="text" name="search" class="form-control" placeholder="Nhập tên loại xe">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
                                             </div>
@@ -44,10 +44,10 @@
                                             </button>
                                         </div>
                                         
-                                        @can('Thêm loại phòng')
+                                        @can('Thêm loại xe')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
-                                                <a href="{{ route('types.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm loại phòng</a>
+                                                <a href="{{ route('types.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm loại xe</a>
                                             </div>
                                         </div><!-- end col-->
                                         @endcan
@@ -59,7 +59,7 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th style="width: 70px;" class="text-center">STT</th>
-                                                <th>Tên loại phòng</th>
+                                                <th>Tên loại xe</th>
                                                 <th class="text-center">Hành động</th>
                                             </tr>
                                         </thead>
@@ -73,13 +73,13 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            @can('Chỉnh sửa loại phòng')
+                                                            @can('Chỉnh sửa loại xe')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('types.edit', $type->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
                                                             @endcan
 
-                                                            @can('Xóa loại phòng')
+                                                            @can('Xóa loại xe')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('types.destroy', $type->id) }}">
                                                                     @csrf

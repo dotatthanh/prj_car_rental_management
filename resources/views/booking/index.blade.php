@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý đặt thuê phòng @endsection
+@section('title') Quản lý đặt thuê xe @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách đặt thuê phòng</h4>
+                            <h4 class="mb-0 font-size-18">Danh sách đặt thuê xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách đặt thuê phòng</li>
+                                    <li class="breadcrumb-item active">Danh sách đặt thuê xe</li>
                                 </ol>
                             </div>
 
@@ -55,7 +55,7 @@
                                                 <th>Tên</th>
                                                 <th>Số điện thoại</th>
                                                 <th>Email</th>
-                                                <th>Mã phòng</th>
+                                                <th>Mã xe</th>
                                                 <th>Ngày bắt đầu thuê</th>
                                                 <th>Ngày kết thúc thuê</th>
                                                 <th>Trạng thái</th>
@@ -87,7 +87,7 @@
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
                                                             @if ($booking->status == 0)
-                                                                @can('Duyệt đặt thuê phòng')
+                                                                @can('Duyệt đặt thuê xe')
                                                                 <li class="list-inline-item px">
                                                                     <form method="post" action="{{ route('bookings.approve-booking', $booking->id) }}">
                                                                         @csrf
@@ -98,12 +98,12 @@
                                                                 </li>
                                                                 @endcan
 
-                                                                @can('Huỷ đặt thuê phòng')
+                                                                @can('Huỷ đặt thuê xe')
                                                                 <li class="list-inline-item px">
                                                                     <form method="post" action="{{ route('bookings.cancel-appointment', $booking->id) }}">
                                                                         @csrf
                                                                         
-                                                                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Huỷ đặt thuê phòng" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Huỷ đặt thuê xe" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                     </form>
                                                                 </li>
                                                                 @endcan

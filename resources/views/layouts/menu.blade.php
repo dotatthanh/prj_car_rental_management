@@ -15,11 +15,11 @@
                     </a>
                 </li>
 
-                @can('Xem danh sách đặt thuê phòng')
+                @can('Xem danh sách đặt thuê xe')
                     <li>
                         <a href="{{ route('bookings.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
-                            <span>Đặt thuê phòng</span>
+                            <span>Đặt thuê xe</span>
                         </a>
                     </li>
                 @endcan
@@ -42,29 +42,20 @@
                     </li>
                 @endcan
 
-                @can('Xem danh sách loại phòng')
+                @can('Xem danh sách loại xe')
                     <li>
                         <a href="{{ route('types.index') }}" class=" waves-effect">
                             <i class="bx bx-calendar"></i>
-                            <span>Loại phòng</span>
+                            <span>Loại xe</span>
                         </a>
                     </li>
                 @endcan
 
-                @can('Xem danh sách trường đại học')
-                    <li>
-                        <a href="{{ route('universities.index') }}" class=" waves-effect">
-                            <i class="bx bx-calendar"></i>
-                            <span>Trường đại học</span>
-                        </a>
-                    </li>
-                @endcan
-
-                @can('Xem danh sách phòng')
+                @can('Xem danh sách xe')
                 <li>
                     <a href="{{ route('rooms.index') }}" class=" waves-effect">
                         <i class="bx bx-home-alt"></i>
-                        <span>Phòng</span>
+                        <span>Xe</span>
                     </a>
                 </li>
                 @endcan

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Cập nhật phòng @endsection
+@section('title') Cập nhật xe @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Cập nhật phòng</h4>
+                            <h4 class="mb-0 font-size-18">Cập nhật xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('rooms.index') }}" title="Quản lý phòng" data-toggle="tooltip" data-placement="top">Quản lý phòng</a></li>
-                                    <li class="breadcrumb-item active">Cập nhật phòng</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('rooms.index') }}" title="Quản lý xe" data-toggle="tooltip" data-placement="top">Quản lý xe</a></li>
+                                    <li class="breadcrumb-item active">Cập nhật xe</li>
                                 </ol>
                             </div>
 

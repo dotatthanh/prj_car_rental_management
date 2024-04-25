@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý phòng @endsection
+@section('title') Quản lý xe @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách phòng</h4>
+                            <h4 class="mb-0 font-size-18">Danh sách xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách phòng</li>
+                                    <li class="breadcrumb-item active">Danh sách xe</li>
                                 </ol>
                             </div>
 
@@ -44,10 +44,10 @@
                                             </button>
                                         </div>
 
-                                        @can('Thêm phòng')
+                                        @can('Thêm xe')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
-                                                <a href="{{ route('rooms.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm phòng</a>
+                                                <a href="{{ route('rooms.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm xe</a>
                                             </div>
                                         </div><!-- end col-->
                                         @endcan
@@ -62,13 +62,13 @@
                                                 <th>Mã</th>
                                                 <th>Ảnh</th>
                                                 <th>Tiêu đề</th>
-                                                <th>Diện tích (m²)</th>
-                                                <th>Số người</th>
+                                                <th>Dung tích (m²)</th>
+                                                <th>Số lượng</th>
                                                 <th>Giá (VND)</th>
                                                 <th>Địa chỉ</th>
                                                 <th>Quận/Huyện</th>
                                                 <th>Trường đại học</th>
-                                                <th>Loại phòng</th>
+                                                <th>Loại xe</th>
                                                 <th>Tiện ích</th>
                                                 <th>Sở thích</th>
                                                 <th>Mô tả</th>
@@ -120,7 +120,7 @@
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Loại phòng</h5>
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Loại xe</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -217,13 +217,13 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            @can('Chỉnh sửa phòng')
+                                                            @can('Chỉnh sửa xe')
                                                             <li class="list-inline-item px">
                                                                 <a href="{{ route('rooms.edit', $room->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                             </li>
                                                             @endcan
 
-                                                            @can('Xóa phòng')
+                                                            @can('Xóa xe')
                                                             <li class="list-inline-item px">
                                                                 <form method="post" action="{{ route('rooms.destroy', $room->id) }}">
                                                                     @csrf

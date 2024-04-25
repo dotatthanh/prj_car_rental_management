@@ -296,14 +296,14 @@ class WebController extends Controller
                 ]);
             }
             else {
-                return redirect()->back()->with('alert-error','Phòng này đã hết chỗ!');
+                return redirect()->back()->with('alert-error','Xe này đã hết chỗ!');
             }
 
             DB::commit();
-            return redirect()->route('home')->with('alert-success','Đặt thuê phòng thành công!');
+            return redirect()->route('home')->with('alert-success','Đặt thuê xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Đặt thuê phòng thất bại!');
+            return redirect()->back()->with('alert-error','Đặt thuê xe thất bại!');
         }
     }
 
@@ -328,10 +328,10 @@ class WebController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('alert-success','Huỷ đặt thuê phòng thành công!');
+            return redirect()->back()->with('alert-success','Huỷ đặt thuê xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Huỷ đặt thuê phòng thất bại!');
+            return redirect()->back()->with('alert-error','Huỷ đặt thuê xe thất bại!');
         }
     }
 

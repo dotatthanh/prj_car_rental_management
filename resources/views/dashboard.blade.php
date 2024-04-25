@@ -29,7 +29,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <h2 class="text-center text-danger">Website quản lý phòng</h2>
+                        <h2 class="text-center text-danger">Website quản lý xe</h2>
                     </div>
                 </div>
                 <!-- end row -->

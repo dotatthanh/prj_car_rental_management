@@ -66,7 +66,7 @@
                     </div>        
                 </div>
 
-                <h2 class="mb-2 text-center">Thông tin tìm phòng</h2>
+                <h2 class="mb-2 text-center">Thông tin tìm xe</h2>
 
                 <div class="form-group">
                     <label for="province_id">Tỉnh/Thành phố <span class="text-danger">*</span></label>

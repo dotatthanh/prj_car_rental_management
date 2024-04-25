@@ -125,7 +125,7 @@ class UtilitiController extends Controller
             DB::beginTransaction();
 
             if ($utility->roomUtilities->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tiện ích thất bại! Tiện ích '.$utility->name.' đang thuộc các phòng.');
+                return redirect()->back()->with('alert-error','Xóa tiện ích thất bại! Tiện ích '.$utility->name.' đang thuộc các xe.');
             }
 
             $utility->destroy($utility->id);

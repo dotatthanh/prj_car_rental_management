@@ -188,7 +188,7 @@ class CustomerController extends Controller
             DB::beginTransaction();
 
             if ($customer->bookings->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách đặt thuê phòng.');
+                return redirect()->back()->with('alert-error','Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách đặt thuê xe.');
             }
 
             Customer::destroy($customer->id);

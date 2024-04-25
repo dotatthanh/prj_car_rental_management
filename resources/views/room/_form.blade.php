@@ -14,14 +14,14 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="acreage">Diện tích(m²) <span class="text-danger">*</span></label>
-                    <input id="acreage" name="acreage" type="number" class="form-control" placeholder="Diện tích" value="{{ old('acreage', $data_edit->acreage ?? '') }}">
+                    <label for="acreage">Dung tích(m²) <span class="text-danger">*</span></label>
+                    <input id="acreage" name="acreage" type="number" class="form-control" placeholder="Dung tích" value="{{ old('acreage', $data_edit->acreage ?? '') }}">
                     {!! $errors->first('acreage', '<span class="error">:message</span>') !!}
                 </div>
 
                 <div class="form-group">
-                    <label for="amount">Số lượng người <span class="text-danger">*</span></label>
-                    <input id="amount" name="amount" type="number" class="form-control" placeholder="Số lượng người" value="{{ old('amount', $data_edit->amount ?? '') }}">
+                    <label for="amount">Số lượng <span class="text-danger">*</span></label>
+                    <input id="amount" name="amount" type="number" class="form-control" placeholder="Số lượng" value="{{ old('amount', $data_edit->amount ?? '') }}">
                     {!! $errors->first('amount', '<span class="error">:message</span>') !!}
                 </div>
 
@@ -74,7 +74,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title mb-3">Loại phòng <span class="text-danger">*</span></h4>
+        <h4 class="card-title mb-3">Loại xe <span class="text-danger">*</span></h4>
         {!! $errors->first('types', '<span class="error">:message</span>') !!}
 
         <div class="row">

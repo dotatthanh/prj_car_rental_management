@@ -22,10 +22,10 @@ class RoleAndPermissionSeeder extends Seeder
         // Gán vai trò
         User::find(1)->assignRole('Admin');
 
-        $view_room = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách phòng']);
-        $create_room = Permission::create(['guard_name' => 'admin','name' => 'Thêm phòng']);
-        $edit_room = Permission::create(['guard_name' => 'admin','name' => 'Chỉnh sửa phòng']);
-        $delete_room = Permission::create(['guard_name' => 'admin','name' => 'Xóa phòng']);
+        $view_room = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách xe']);
+        $create_room = Permission::create(['guard_name' => 'admin','name' => 'Thêm xe']);
+        $edit_room = Permission::create(['guard_name' => 'admin','name' => 'Chỉnh sửa xe']);
+        $delete_room = Permission::create(['guard_name' => 'admin','name' => 'Xóa xe']);
 
         $admin->givePermissionTo($view_room);
         $admin->givePermissionTo($create_room);
@@ -70,9 +70,9 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($view_permission_detail);
         $admin->givePermissionTo($edit_permission);
 
-        $view_booking = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách đặt thuê phòng']);
-        $approve_booking = Permission::create(['guard_name' => 'admin','name' => 'Duyệt đặt thuê phòng']);
-        $cancel_appointment_booking = Permission::create(['guard_name' => 'admin','name' => 'Huỷ đặt thuê phòng']);
+        $view_booking = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách đặt thuê xe']);
+        $approve_booking = Permission::create(['guard_name' => 'admin','name' => 'Duyệt đặt thuê xe']);
+        $cancel_appointment_booking = Permission::create(['guard_name' => 'admin','name' => 'Huỷ đặt thuê xe']);
 
         $admin->givePermissionTo($view_booking);
         $admin->givePermissionTo($approve_booking);
@@ -98,10 +98,10 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($edit_hobby);
         $admin->givePermissionTo($delete_hobby);
 
-        $view_type = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách loại phòng']);
-        $create_type = Permission::create(['guard_name' => 'admin','name' => 'Thêm loại phòng']);
-        $edit_type = Permission::create(['guard_name' => 'admin','name' => 'Chỉnh sửa loại phòng']);
-        $delete_type = Permission::create(['guard_name' => 'admin','name' => 'Xóa loại phòng']);
+        $view_type = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách loại xe']);
+        $create_type = Permission::create(['guard_name' => 'admin','name' => 'Thêm loại xe']);
+        $edit_type = Permission::create(['guard_name' => 'admin','name' => 'Chỉnh sửa loại xe']);
+        $delete_type = Permission::create(['guard_name' => 'admin','name' => 'Xóa loại xe']);
 
         $admin->givePermissionTo($view_type);
         $admin->givePermissionTo($create_type);

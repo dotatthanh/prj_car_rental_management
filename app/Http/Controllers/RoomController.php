@@ -139,10 +139,10 @@ class RoomController extends Controller
             }
             
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Thêm phòng thành công!');
+            return redirect()->route('rooms.index')->with('alert-success','Thêm xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm phòng thất bại!');
+            return redirect()->back()->with('alert-error','Thêm xe thất bại!');
         }
     }
 
@@ -258,10 +258,10 @@ class RoomController extends Controller
 
             
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Sửa phòng thành công!');
+            return redirect()->route('rooms.index')->with('alert-success','Sửa xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa phòng thất bại!');
+            return redirect()->back()->with('alert-error','Sửa xe thất bại!');
         }
     }
 
@@ -277,11 +277,11 @@ class RoomController extends Controller
             DB::beginTransaction();
 
             if ($room->status == 1) {
-                return redirect()->back()->with('alert-error','Xóa phòng thất bại! Phòng '.$room->name.' đang có người thuê.');
+                return redirect()->back()->with('alert-error','Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
             }
 
             if ($room->bookings->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa phòng thất bại! Phòng '.$room->name.' đang có người thuê.');
+                return redirect()->back()->with('alert-error','Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
             }
 
             $room->utilities()->delete();
@@ -290,10 +290,10 @@ class RoomController extends Controller
             $room->destroy($room->id);
             
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Xóa phòng thành công!');
+            return redirect()->route('rooms.index')->with('alert-success','Xóa xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa phòng thất bại!');
+            return redirect()->back()->with('alert-error','Xóa xe thất bại!');
         }
     }
 }

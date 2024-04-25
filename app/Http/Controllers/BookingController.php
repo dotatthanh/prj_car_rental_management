@@ -124,7 +124,7 @@ class BookingController extends Controller
 
             if ($booking->room->hired == $booking->room->amount)
             {
-                return redirect()->back()->with('alert-error','Phòng này đã hết chỗ!');
+                return redirect()->back()->with('alert-error','Xe này đã hết chỗ!');
             }
 
             $booking->update([

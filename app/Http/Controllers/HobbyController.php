@@ -125,7 +125,7 @@ class HobbyController extends Controller
             DB::beginTransaction();
 
             if ($hobby->hobbyRooms->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa sở thích thất bại! Sở thích '.$hobby->name.' đang thuộc các phòng.');
+                return redirect()->back()->with('alert-error','Xóa sở thích thất bại! Sở thích '.$hobby->name.' đang thuộc các xe.');
             }
 
             $hobby->destroy($hobby->id);

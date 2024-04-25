@@ -64,7 +64,7 @@
                     <a href="{{ route('web.change-password') }}">Đổi mật khẩu</a>
                 </li>
                 <li>
-                    <a href="{{ route('web.info-booking') }}">Thông tin đặt thuê phòng</a>
+                    <a href="{{ route('web.info-booking') }}">Thông tin đặt thuê xe</a>
                 </li>
                 <li>
                     <form action="{{ route('web.logout') }}" method="post">
@@ -91,7 +91,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ route('web.profile') }}">Thông tin cá nhân</a>
                     <a class="dropdown-item" href="{{ route('web.change-password') }}">Đổi mật khẩu</a>
-                    <a class="dropdown-item" href="{{ route('web.info-booking') }}">Thông tin đặt thuê phòng</a>
+                    <a class="dropdown-item" href="{{ route('web.info-booking') }}">Thông tin đặt thuê xe</a>
                     <div class="dropdown-divider"></div>
                     <form action="{{ route('web.logout') }}" method="post">
                         @csrf
@@ -113,7 +113,7 @@
          <!--Bắt Đầu Nội Dung Giới Thiệu-->
          <div class="noi-dung about">
              <h2>Về Chúng Tôi</h2>
-             <p>Chào mừng bạn đã đến và sử dụng trang web hệ thống tìm kiếm phòng trọ của chúng tôi !</p>
+             <p>Chào mừng bạn đã đến và sử dụng trang web hệ thống tìm kiếm xe của chúng tôi !</p>
              
          </div>
          <!--Kết Thúc Nội Dung Giới Thiệu-->

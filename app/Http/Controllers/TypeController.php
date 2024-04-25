@@ -56,10 +56,10 @@ class TypeController extends Controller
             ]);
             
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Thêm loại phòng thành công!');
+            return redirect()->route('types.index')->with('alert-success','Thêm loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm loại phòng thất bại!');
+            return redirect()->back()->with('alert-error','Thêm loại xe thất bại!');
         }
     }
 
@@ -106,10 +106,10 @@ class TypeController extends Controller
             ]);
             
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Sửa loại phòng thành công!');
+            return redirect()->route('types.index')->with('alert-success','Sửa loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa loại phòng thất bại!');
+            return redirect()->back()->with('alert-error','Sửa loại xe thất bại!');
         }
     }
 
@@ -125,16 +125,16 @@ class TypeController extends Controller
             DB::beginTransaction();
 
             if ($type->roomTypes->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa loại phòng thất bại! Loại phòng '.$type->name.' đang thuộc các phòng.');
+                return redirect()->back()->with('alert-error','Xóa loại xe thất bại! Loại xe '.$type->name.' đang thuộc các xe.');
             }
 
             $type->destroy($type->id);
             
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Xóa loại phòng thành công!');
+            return redirect()->route('types.index')->with('alert-success','Xóa loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa loại phòng thất bại!');
+            return redirect()->back()->with('alert-error','Xóa loại xe thất bại!');
         }
     }
 }

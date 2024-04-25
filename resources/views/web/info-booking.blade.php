@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title') Thông tin đặt thuê phòng @endsection
+@section('title') Thông tin đặt thuê xe @endsection
 
 @section('content')
 <div class="container">
     <div class="row">
-        <h2 class="title">THÔNG TIN ĐẶT THUÊ PHÒNG</h2>
+        <h2 class="title">THÔNG TIN ĐẶT THUÊ XE</h2>
 
         <table class="table table-bordered">
             <tr class="text-center">
@@ -13,7 +13,7 @@
                 <th>Tên</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
-                <th>Mã phòng</th>
+                <th>Mã xe</th>
                 <th>Ngày bắt đầu thuê</th>
                 <th>Ngày kết thúc thuê</th>
                 <th>Trạng thái</th>

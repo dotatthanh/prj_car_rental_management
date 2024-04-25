@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title') Chi tiết phòng @endsection
+@section('title') Chi tiết xe @endsection
 
 @section('content')
 <div class="container">
-    <h2 class="title">CHI TIẾT PHÒNG</h2>
+    <h2 class="title">CHI TIẾT xe</h2>
     <div class="row">
         <div class="col-12 text-center">
             <img src="{{ asset($room->image) }}" alt="" class="w-1001">
@@ -14,22 +14,22 @@
         <div style=" width : 800px;">
         <div class="col-6" style="padding : 20px;" >
             <span class="icon-nav-home-fill"></span>
-            <h2 class="font-size-20">Thông tin phòng</h2>
+            <h2 class="font-size-20">Thông tin xe</h2>
             <h5 class="RoomName" style="width:600px;">{{ $room->name }}</h5>
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h5 class="">Mã phòng: {{ $room->code }}</h5>
-                    <p class="text-danger mt-2">Diện tích: {{ number_format($room->acreage, 0, ',', '.') }}m²</p>
+                    <h5 class="">Mã xe: {{ $room->code }}</h5>
+                    <p class="text-danger mt-2">Dung tích: {{ number_format($room->acreage, 0, ',', '.') }}m²</p>
                     <p style="width: 500px;">Địa chỉ: {{ $room->address }}</p>
                 </div>
             </div>
                                 <!-- ==================== -->
            <div style= " position: absolute; right: -800px; top: 0px; padding : 20px;">
                     <div style=" width : 400px">
-                        <h2  style="font-size: 30px;">Thông tin chủ phòng</h2>
+                        <h2  style="font-size: 30px;">Thông tin chủ xe</h2>
                         
-                        <p>Chủ phòng : {{ $room->user->name }}</p>
+                        <p>Chủ xe : {{ $room->user->name }}</p>
                         @if (auth()->guard('web')->user())
                             <p>SĐT: {{ $room->user->phone }}</p>
                         @endif
@@ -37,9 +37,9 @@
                     </div>
                     <div class="col-12">
                         @if (auth()->guard('web')->user())
-                            <button type="button" data-toggle="modal" data-target="#booking">Đặt thuê phòng</button>
+                            <button type="button" data-toggle="modal" data-target="#booking">Đặt thuê xe</button>
                         @else
-                            <p class="d-block mt-2 font-weight-bold"><a href="{{ route('web.login') }}" class="text-primary">Đăng nhập</a> để đặt thuê phòng!</p>
+                            <p class="d-block mt-2 font-weight-bold"><a href="{{ route('web.login') }}" class="text-primary">Đăng nhập</a> để đặt thuê xe!</p>
                         @endif
                     </div>
             </div>  
@@ -49,7 +49,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header" style="left: 100px">
-                            <h5 class="modal-title" id="exampleModalLabel">Điền thông tin thuê phòng</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Điền thông tin thuê xe</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -76,7 +76,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <button class="btn btn-success">Đặt phòng</button>
+                                        <button class="btn btn-success">Đặt xe</button>
                                     </div>
                                 </div>
                             </form>
@@ -89,16 +89,16 @@
             </div>
         </div>
 
-        <!-- Thông tin phòng-->
+        <!-- Thông tin xe-->
         <div class="cloum" style="width: 500px;">
-                    <p class="mt-2" style="width: 500px; font-size:20px;"><img src="https://img.icons8.com/dusk/64/000000/school.png"/> Trường đại học: {{ $room->university->name }}</p>
-                    <p class="text-success mt-2" style="font-size: 20px; width : 300px;"><img src="https://img.icons8.com/ios-glyphs/30/000000/conference-call--v1.png"/>Số lượng người: {{ $room->hired }}/{{ $room->amount }} người</p>
-                    <p class="text-danger mt-2" style="font-size: 20px; with: 100px;"><img src="https://img.icons8.com/material-outlined/48/000000/money--v1.png"/>  Giá: {{ number_format($room->price, 0, ',', '.') }} VND</p>
+                    <p class="mt-2" style="width: 500px; font-size:20px;">Trường đại học: {{ $room->university->name }}</p>
+                    <p class="text-success mt-2" style="font-size: 20px; width : 300px;">Số lượng: {{ $room->hired }}/{{ $room->amount }} người</p>
+                    <p class="text-danger mt-2" style="font-size: 20px; with: 100px;">Giá: {{ number_format($room->price, 0, ',', '.') }} VND</p>
          </div>
 
-         <!-- Loại Phòng-->
+         <!-- Loại xe-->
         <div class="cloum" style="right: 100px; ">
-            <h2 style="font-size: 40px"><img src="https://img.icons8.com/dusk/64/000000/room.png"/> Loại phòng</h2>
+            <h2 style="font-size: 40px">Loại xe</h2>
             @foreach ($room->types as $type)
                 <label class="form-check-label" for="type{{ $type->type->id }}">
                 <p id="id_1" style="width: 200px; font-size: 25px;">+ {{ $type->type->name }}<p>

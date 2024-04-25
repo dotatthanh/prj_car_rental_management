@@ -45,9 +45,9 @@ class StoreRoomRequest extends FormRequest
     public function messages()
     {
         return [
-            'acreage.required' => 'Diện tích là trường bắt buộc.', 
-            'acreage.numeric' => 'Diện tích là định dạng số.', 
-            'acreage.min' => 'Diện tích không được nhỏ hơn :min.', 
+            'acreage.required' => 'Dung tích là trường bắt buộc.', 
+            'acreage.numeric' => 'Dung tích là định dạng số.', 
+            'acreage.min' => 'Dung tích không được nhỏ hơn :min.', 
             'name.required' => 'Tiêu đề là trường bắt buộc.', 
             'name.max' => 'Tiêu đề không được dài quá :max ký tự.', 
             'address.required' => 'Địa chỉ là trường bắt buộc.', 
@@ -60,8 +60,8 @@ class StoreRoomRequest extends FormRequest
             'image.min' => 'Ảnh phải là hình ảnh (jpg, jpeg, png, bmp, gif, svg hoặc webp).', 
             'utilities.required' => 'Tiện ích là trường bắt buộc.', 
             'hobbys.required' => 'Sở thích là trường bắt buộc.', 
-            'types.required' => 'Loại phòng là trường bắt buộc.', 
-            'amount.required' => 'Số lượng người là trường bắt buộc.', 
+            'types.required' => 'Loại xe là trường bắt buộc.', 
+            'amount.required' => 'Số lượng là trường bắt buộc.', 
             'university_id.required' => 'Trường đại học là trường bắt buộc.', 
             'district_id.required' => 'Quận/Huyện là trường bắt buộc.', 
         ];

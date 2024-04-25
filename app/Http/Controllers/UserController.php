@@ -200,7 +200,7 @@ class UserController extends Controller
             DB::beginTransaction();
 
             if ($user->rooms->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có phòng.');
+                return redirect()->back()->with('alert-error','Xóa tài khoản thất bại! Tài khoản '.$user->name.' đang có xe.');
             }
 
             $user->roles()->detach();

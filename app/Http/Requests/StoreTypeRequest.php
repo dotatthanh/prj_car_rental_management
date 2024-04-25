@@ -35,9 +35,9 @@ class StoreTypeRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Tên loại phòng là trường bắt buộc.', 
-            'name.max' => 'Tên loại phòng không được dài quá :max ký tự.', 
-            'name.unique' => 'Loại phòng đã tồn tại.', 
+            'name.required' => 'Tên loại xe là trường bắt buộc.', 
+            'name.max' => 'Tên loại xe không được dài quá :max ký tự.', 
+            'name.unique' => 'Loại xe đã tồn tại.', 
         ];
     }
 }
