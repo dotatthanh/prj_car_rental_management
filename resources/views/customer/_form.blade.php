@@ -62,11 +62,6 @@
 
         @endif
         
-        <div class="form-group">
-            <label for="university">Trường đại học</label>
-            <input id="university" name="university" type="text" class="form-control" placeholder="Trường đại học" value="{{ old('university', $data_edit->university ?? '') }}">
-            {!! $errors->first('university', '<span class="text-danger">:message</span>') !!}
-        </div>
     </div>
 
     <div class="col-sm-6">

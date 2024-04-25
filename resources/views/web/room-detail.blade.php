@@ -91,7 +91,6 @@
 
         <!-- Thông tin xe-->
         <div class="cloum" style="width: 500px;">
-                    <p class="mt-2" style="width: 500px; font-size:20px;">Trường đại học: {{ $room->university->name }}</p>
                     <p class="text-success mt-2" style="font-size: 20px; width : 300px;">Số lượng: {{ $room->hired }}/{{ $room->amount }} người</p>
                     <p class="text-danger mt-2" style="font-size: 20px; with: 100px;">Giá: {{ number_format($room->price, 0, ',', '.') }} VND</p>
          </div>

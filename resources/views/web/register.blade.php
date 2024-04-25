@@ -87,17 +87,6 @@
                     </select>
                     {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
                 </div>
-
-                <div class="form-group">
-                    <label for="university_id">Trường đại học</label>
-                    <select name="university_id" id="university_id" class="form-control">
-                        <option value="">Chọn trường đại học</option>
-                        @foreach ($universities as $university)
-                        <option value="{{ $university->id }}">{{ $university->name }}</option>
-                        @endforeach
-                    </select>
-                    {!! $errors->first('university_id', '<span class="text-danger">:message</span>') !!}
-                </div>
             </div>
 
             <div class="col-sm-6">

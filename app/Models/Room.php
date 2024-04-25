@@ -19,7 +19,6 @@ class Room extends Model
     	'status',
         'image',
         'amount',
-        'university_id',
         'user_id',
         'district_id',
         'hired'
@@ -38,11 +37,6 @@ class Room extends Model
     public function types()
     {
         return $this->hasMany(RoomType::class);
-    }
-
-    public function university()
-    {
-        return $this->belongsTo(University::class);
     }
 
     public function district()

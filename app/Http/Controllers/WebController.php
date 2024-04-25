@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Prescription;
 use App\Models\Booking;
 use App\Models\HealthCertification;
-use App\Models\University;
 use App\Models\Utiliti;
 use App\Models\Type;
 use App\Models\Hobby;
@@ -34,7 +33,7 @@ class WebController extends Controller
 
         if(auth()->guard('web')->user())
         {
-            $suggests = Room::where('status', 0)->where('university_id', auth()->guard('web')->user()->university_id)
+            $suggests = Room::where('status', 0)
             ->orWhere('district_id', auth()->guard('web')->user()->district_id)
             ->get();
 
@@ -138,11 +137,9 @@ class WebController extends Controller
     public function register()
     {
         $provinces = Province::all();
-        $universities = University::all();
 
         $data = [
             'provinces' => $provinces,
-            'universities' => $universities,
         ];
 
     	return view('web.register', $data);
@@ -172,7 +169,6 @@ class WebController extends Controller
                 'password' => Hash::make($request->password),
                 'province_id' => $request->province_id,
                 'district_id' => $request->district_id,
-                'university_id' => $request->university_id,
             ]);
 
             $create->update([
@@ -193,11 +189,9 @@ class WebController extends Controller
 
     public function changeProfile() {
         $provinces = Province::all();
-        $universities = University::all();
 
         $data = [
             'provinces' => $provinces,
-            'universities' => $universities,
         ];
 
         return view('web.change-profile', $data);
@@ -225,7 +219,6 @@ class WebController extends Controller
                 'address' => $request->address,
                 'province_id' => $request->province_id,
                 'district_id' => $request->district_id,
-                'university_id' => $request->university_id,
                 'avatar' => $file_path,
             ]);
             

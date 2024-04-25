@@ -44,10 +44,6 @@
                             <td>{{ auth()->guard('web')->user()->address }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Trường đại học :</th>
-                            <td>{{ auth()->guard('web')->user()->university_id ? auth()->guard('web')->user()->university->name : ''}}</td>
-                        </tr>
-                        <tr>
                             <th scope="row">Ảnh đại diện :</th>
                             <td>
                                 <img src="{{ asset(auth()->guard('web')->user()->avatar) }}" alt="" class="avatar">

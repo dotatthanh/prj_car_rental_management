@@ -1,6 +1,8 @@
 @extends('layouts.default')
 
-@section('title') Quản lý đặt thuê xe @endsection
+@section('title')
+    Quản lý đặt thuê xe
+@endsection
 
 @section('content')
     <div class="main-content">
@@ -16,7 +18,8 @@
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý"
+                                            data-toggle="tooltip" data-placement="top">Quản lý</a></li>
                                     <li class="breadcrumb-item active">Danh sách đặt thuê xe</li>
                                 </ol>
                             </div>
@@ -35,12 +38,14 @@
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Nhập số điện thoại">
+                                                    <input type="text" name="search" class="form-control"
+                                                        placeholder="Nhập số điện thoại">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success waves-effect waves-light">
-                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
+                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i>
+                                                Tìm kiếm
                                             </button>
                                         </div>
 
@@ -63,7 +68,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php ($stt = 1)
+                                            @php($stt = 1)
                                             @foreach ($bookings as $booking)
                                                 <tr>
                                                     <td>{{ $stt++ }}</td>
@@ -71,41 +76,57 @@
                                                     <td>{{ $booking->customer->phone }}</td>
                                                     <td>{{ $booking->customer->email }}</td>
                                                     <td>{{ $booking->room->code }}</td>
-                                                    <td class="text-center">{{ date("d-m-Y", strtotime($booking->from_date)) }}</td>
-                                                    <td class="text-center">{{ date("d-m-Y", strtotime($booking->to_date)) }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d-m-Y', strtotime($booking->from_date)) }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d-m-Y', strtotime($booking->to_date)) }}</td>
                                                     <td>
                                                         @if ($booking->status == 1)
                                                             <label class="btn btn-success waves-effect waves-light">
-                                                                <i class="bx bx-check-double font-size-16 align-middle mr-2"></i> Đã duyệt
+                                                                <i
+                                                                    class="bx bx-check-double font-size-16 align-middle mr-2"></i>
+                                                                Đã duyệt
                                                             </label>
                                                         @elseif ($booking->status == 0)
-                                                            <label class="btn btn-warning waves-effect waves-light font-size-12">Chờ duyệt</label>
+                                                            <label
+                                                                class="btn btn-warning waves-effect waves-light font-size-12">Chờ
+                                                                duyệt</label>
                                                         @elseif ($booking->status == -1)
-                                                            <label class="btn btn-danger waves-effect waves-light font-size-12">Đã huỷ</label>
+                                                            <label
+                                                                class="btn btn-danger waves-effect waves-light font-size-12">Đã
+                                                                huỷ</label>
                                                         @endif
                                                     </td>
                                                     <td class="text-center">
                                                         <ul class="list-inline font-size-20 contact-links mb-0">
                                                             @if ($booking->status == 0)
                                                                 @can('Duyệt đặt thuê xe')
-                                                                <li class="list-inline-item px">
-                                                                    <form method="post" action="{{ route('bookings.approve-booking', $booking->id) }}">
-                                                                        @csrf
-                                                                        
-                                                                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Duyệt" class="border-0 bg-white"><i class="bx bxs-calendar-check text-success"></i></button>
-                                                                    </form>
+                                                                    <li class="list-inline-item px">
+                                                                        <form method="post"
+                                                                            action="{{ route('bookings.approve-booking', $booking->id) }}">
+                                                                            @csrf
 
-                                                                </li>
+                                                                            <button type="submit" data-toggle="tooltip"
+                                                                                data-placement="top" title="Duyệt"
+                                                                                class="border-0 bg-white"><i
+                                                                                    class="bx bxs-calendar-check text-success"></i></button>
+                                                                        </form>
+
+                                                                    </li>
                                                                 @endcan
 
                                                                 @can('Huỷ đặt thuê xe')
-                                                                <li class="list-inline-item px">
-                                                                    <form method="post" action="{{ route('bookings.cancel-appointment', $booking->id) }}">
-                                                                        @csrf
-                                                                        
-                                                                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Huỷ đặt thuê xe" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
-                                                                    </form>
-                                                                </li>
+                                                                    <li class="list-inline-item px">
+                                                                        <form method="post"
+                                                                            action="{{ route('bookings.cancel-appointment', $booking->id) }}">
+                                                                            @csrf
+
+                                                                            <button type="submit" data-toggle="tooltip"
+                                                                                data-placement="top" title="Huỷ đặt thuê xe"
+                                                                                class="border-0 bg-white"><i
+                                                                                    class="mdi mdi-trash-can text-danger"></i></button>
+                                                                        </form>
+                                                                    </li>
                                                                 @endcan
                                                             @endif
                                                         </ul>
@@ -126,6 +147,6 @@
         <!-- End Page-content -->
 
 
-        
+
     </div>
 @endsection

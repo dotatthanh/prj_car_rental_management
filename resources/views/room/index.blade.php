@@ -67,7 +67,6 @@
                                                 <th>Giá (VND)</th>
                                                 <th>Địa chỉ</th>
                                                 <th>Quận/Huyện</th>
-                                                <th>Trường đại học</th>
                                                 <th>Loại xe</th>
                                                 <th>Tiện ích</th>
                                                 <th>Sở thích</th>
@@ -112,7 +111,6 @@
                                                     <td>{{ number_format($room->price, 0, ',', '.') }}</td>
                                                     <td>{{ $room->address }}</td>
                                                     <td>{{ $room->district ? $room->district->name : '' }}</td>
-                                                    <td>{{ $room->university->name }}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#type{{ $room->id }}">Xem</button>
 

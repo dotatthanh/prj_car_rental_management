@@ -15,7 +15,6 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('university_id')->nullable();
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('province_id');
             $table->string('address');
@@ -30,7 +29,6 @@ class CreateCustomersTable extends Migration
             $table->timestamps();
             $table->foreign('district_id')->references('id')->on('districts');
             $table->foreign('province_id')->references('id')->on('provinces');
-            $table->foreign('university_id')->references('id')->on('universities');
         });
     }
 

@@ -77,7 +77,6 @@ class CustomerController extends Controller
                 'address' => $request->address,
                 'district_id' => $request->district_id,
                 'province_id' => $request->province_id,
-                'university' => $request->university,
                 'avatar' => $file_path,
                 //mã hóa password
                 'password' => bcrypt($request->password),
@@ -150,7 +149,6 @@ class CustomerController extends Controller
                     'address' => $request->address,
                     'district_id' => $request->district_id,
                     'province_id' => $request->province_id,
-                    'university' => $request->university,
                     'avatar' => $file_path,
                 ]);
             }
@@ -164,7 +162,6 @@ class CustomerController extends Controller
                     'address' => $request->address,
                     'district_id' => $request->district_id,
                     'province_id' => $request->province_id,
-                    'university' => $request->university,
                 ]);
             }
             

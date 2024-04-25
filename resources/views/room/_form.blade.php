@@ -56,17 +56,6 @@
                     {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
                 </div>
 
-                <div class="form-group">
-                    <label for="university_id">Tên trường đại học <span class="text-danger">*</span></label>
-                    <select class="form-control select2" name="university_id">
-                        <option value="">Chọn trường đại học</option>
-                        @foreach ($universities as $university_id)
-                        <option value="{{ $university_id->id }}" {{ isset($data_edit->university_id) && $data_edit->university_id == $university_id->id ? 'selected' : '' }}>{{ $university_id->name }}</option>
-                        @endforeach
-                    </select>
-                    {!! $errors->first('university_id', '<span class="error">:message</span>') !!}
-                </div>
-
             </div>
         </div>
     </div>

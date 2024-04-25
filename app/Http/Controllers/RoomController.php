@@ -8,7 +8,6 @@ use App\Models\Hobby;
 use App\Models\RoomUtiliti;
 use App\Models\RoomType;
 use App\Models\HobbyRoom;
-use App\Models\University;
 use App\Models\Type;
 use App\Models\District;
 use Illuminate\Http\Request;
@@ -60,14 +59,12 @@ class RoomController extends Controller
         $utilities = Utiliti::all();
         $types = Type::all();
         $hobbys = Hobby::all();
-        $universities = University::all();
         $districts = District::all();
 
         $data = [
             'utilities' => $utilities,
             'types' => $types,
             'hobbys' => $hobbys,
-            'universities' => $universities,
             'districts' => $districts,
         ];
 
@@ -102,7 +99,6 @@ class RoomController extends Controller
                 'amount' => $request->amount,
                 'image' => $file_path,
                 'status' => 0,
-                'university_id' => $request->university_id,
                 'user_id' => auth()->id(),
                 'district_id' => $request->district_id,
             ]);
@@ -167,7 +163,6 @@ class RoomController extends Controller
     {
         $utilities = Utiliti::all();
         $types = Type::all();
-        $universities = University::all();
         $hobbys = Hobby::all();
         $districts = District::all();
 
@@ -175,7 +170,6 @@ class RoomController extends Controller
             'utilities' => $utilities,
             'types' => $types,
             'hobbys' => $hobbys,
-            'universities' => $universities,
             'districts' => $districts,
             'data_edit' => $room
         ];
@@ -207,7 +201,6 @@ class RoomController extends Controller
                     'description' => $request->description,
                     'price' => $request->price,
                     'amount' => $request->amount,
-                    'university_id' => $request->university_id,
                     'image' => $file_path,
                     'district_id' => $request->district_id,
                 ]);
@@ -220,7 +213,6 @@ class RoomController extends Controller
                     'description' => $request->description,
                     'price' => $request->price,
                     'amount' => $request->amount,
-                    'university_id' => $request->university_id,
                     'district_id' => $request->district_id,
                 ]);
             }

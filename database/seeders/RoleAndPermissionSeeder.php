@@ -107,15 +107,5 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($create_type);
         $admin->givePermissionTo($edit_type);
         $admin->givePermissionTo($delete_type);
-
-        $view_university = Permission::create(['guard_name' => 'admin','name' => 'Xem danh sách trường đại học']);
-        $create_university = Permission::create(['guard_name' => 'admin','name' => 'Thêm trường đại học']);
-        $edit_university = Permission::create(['guard_name' => 'admin','name' => 'Chỉnh sửa trường đại học']);
-        $delete_university = Permission::create(['guard_name' => 'admin','name' => 'Xóa trường đại học']);
-
-        $admin->givePermissionTo($view_university);
-        $admin->givePermissionTo($create_university);
-        $admin->givePermissionTo($edit_university);
-        $admin->givePermissionTo($delete_university);
     }
 }

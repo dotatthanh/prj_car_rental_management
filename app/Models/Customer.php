@@ -26,7 +26,6 @@ class Customer extends Authenticatable
         'email',
         'province_id',
         'district_id',
-        'university_id',
     ];
 
     public function bookings()
@@ -42,11 +41,6 @@ class Customer extends Authenticatable
     public function district()
     {
         return $this->belongsTo(District::class);
-    }
-
-    public function university()
-    {
-        return $this->belongsTo(University::class, 'university_id', 'id');
     }
 }
 

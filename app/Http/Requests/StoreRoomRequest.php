@@ -37,7 +37,6 @@ class StoreRoomRequest extends FormRequest
             'hobbys' => 'required',
             'types' => 'required',
             'amount' => 'required',
-            'university_id' => 'required',
             'district_id' => 'required',
         ];
     }
@@ -62,7 +61,6 @@ class StoreRoomRequest extends FormRequest
             'hobbys.required' => 'Sở thích là trường bắt buộc.', 
             'types.required' => 'Loại xe là trường bắt buộc.', 
             'amount.required' => 'Số lượng là trường bắt buộc.', 
-            'university_id.required' => 'Trường đại học là trường bắt buộc.', 
             'district_id.required' => 'Quận/Huyện là trường bắt buộc.', 
         ];
     }
