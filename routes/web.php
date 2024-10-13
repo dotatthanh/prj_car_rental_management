@@ -44,7 +44,7 @@ Route::middleware(['website'])->group(function () {
 	Route::get('/thong-tin-dat-thue-phong', [WebController::class, 'infoBooking'])->name('web.info-booking');
 	Route::post('/huy-dat-thue-phong/{id}', [WebController::class, 'cancelAppointment'])->name('web.cancel-appointment');
 });
-	Route::get('/chi-tiet-phong/{id}', [WebController::class, 'roomDetail'])->name('web.room-detail');
+	Route::get('/chi-tiet-xe/{id}', [WebController::class, 'roomDetail'])->name('web.room-detail');
 	
 Route::middleware(['guest_website'])->group(function () {
 	Route::get('/dang-nhap', [WebController::class, 'login'])->name('web.login');

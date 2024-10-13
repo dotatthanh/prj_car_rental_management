@@ -35,13 +35,13 @@
                         @endif
                         <p>Ngày đăng: {{ $room->created_at }}</p>
                     </div>
+                    @if (auth()->guard('web')->user())
+                    <button type="button" data-toggle="modal" data-target="#booking" class="btn btn-primary mt-2">Đặt thuê xe</button>
+                    @else
                     <div class="col-12">
-                        @if (auth()->guard('web')->user())
-                            <button type="button" data-toggle="modal" data-target="#booking">Đặt thuê xe</button>
-                        @else
                             <p class="d-block mt-2 font-weight-bold"><a href="{{ route('web.login') }}" class="text-primary">Đăng nhập</a> để đặt thuê xe!</p>
+                        </div>
                         @endif
-                    </div>
             </div>  
             </div>
 
