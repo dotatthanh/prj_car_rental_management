@@ -12,7 +12,6 @@ class WebMiddleware
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = 'web')
@@ -22,6 +21,7 @@ class WebMiddleware
         if (Auth::guard($guard)->check()) {
             return $next($request);
         }
+
         return redirect('dang-nhap');
     }
 }

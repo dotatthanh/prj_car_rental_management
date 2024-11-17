@@ -29,10 +29,11 @@ class WebLoginRequest extends FormRequest
         ];
     }
 
-    public function messages() {
+    public function messages()
+    {
         return [
             'email.required' => 'Email không được để trống',
-            'password.required' => 'Mật khẩu không được để trống'
+            'password.required' => 'Mật khẩu không được để trống',
         ];
     }
 }

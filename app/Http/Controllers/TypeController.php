@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTypeRequest;
+use App\Models\Type;
 use DB;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -24,7 +24,7 @@ class TypeController extends Controller
         }
 
         $data = [
-            'types' => $types
+            'types' => $types,
         ];
 
         return view('type.index', $data);
@@ -50,23 +50,24 @@ class TypeController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             $create = Type::create([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Thêm loại xe thành công!');
+
+            return redirect()->route('types.index')->with('alert-success', 'Thêm loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm loại xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm loại xe thất bại!');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
     public function show(Type $type)
@@ -77,13 +78,12 @@ class TypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
     public function edit(Type $type)
     {
         $data = [
-            'data_edit' => $type
+            'data_edit' => $type,
         ];
 
         return view('type.edit', $data);
@@ -93,7 +93,6 @@ class TypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
     public function update(StoreTypeRequest $request, Type $type)
@@ -104,19 +103,20 @@ class TypeController extends Controller
             $type->update([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Sửa loại xe thành công!');
+
+            return redirect()->route('types.index')->with('alert-success', 'Sửa loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa loại xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Sửa loại xe thất bại!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
     public function destroy(Type $type)
@@ -125,16 +125,18 @@ class TypeController extends Controller
             DB::beginTransaction();
 
             if ($type->roomTypes->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa loại xe thất bại! Loại xe '.$type->name.' đang thuộc các xe.');
+                return redirect()->back()->with('alert-error', 'Xóa loại xe thất bại! Loại xe '.$type->name.' đang thuộc các xe.');
             }
 
             $type->destroy($type->id);
-            
+
             DB::commit();
-            return redirect()->route('types.index')->with('alert-success','Xóa loại xe thành công!');
+
+            return redirect()->route('types.index')->with('alert-success', 'Xóa loại xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa loại xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa loại xe thất bại!');
         }
     }
 }

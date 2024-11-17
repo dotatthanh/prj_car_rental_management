@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoleRequest;
+use DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use DB;
-use App\Http\Requests\StoreRoleRequest;
 
 class RoleController extends Controller
 {
@@ -24,7 +24,7 @@ class RoleController extends Controller
         }
 
         $data = [
-            'roles' => $roles
+            'roles' => $roles,
         ];
 
         return view('role.index', $data);
@@ -57,10 +57,12 @@ class RoleController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('roles.index')->with('alert-success','Thêm vai trò thành công!');
+
+            return redirect()->route('roles.index')->with('alert-success', 'Thêm vai trò thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm vai trò thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm vai trò thất bại!');
         }
     }
 
@@ -109,10 +111,12 @@ class RoleController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('roles.index')->with('alert-success','Cập nhật vai trò thành công!');
+
+            return redirect()->route('roles.index')->with('alert-success', 'Cập nhật vai trò thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Cập nhật vai trò thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Cập nhật vai trò thất bại!');
         }
     }
 
@@ -130,18 +134,19 @@ class RoleController extends Controller
             $role = Role::findOrFail($id);
 
             if ($role->users->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa vai trò thất bại! Vai trò '.$role->name.' đang có tài khoản.');
-            }
-            elseif ($role->permissions->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa vai trò thất bại! Vai trò '.$role->name.' đang có quyền.');
+                return redirect()->back()->with('alert-error', 'Xóa vai trò thất bại! Vai trò '.$role->name.' đang có tài khoản.');
+            } elseif ($role->permissions->count() > 0) {
+                return redirect()->back()->with('alert-error', 'Xóa vai trò thất bại! Vai trò '.$role->name.' đang có quyền.');
             }
 
             $role->destroy($id);
             DB::commit();
-            return redirect()->route('roles.index')->with('alert-success','Xóa vai trò thành công!');
+
+            return redirect()->route('roles.index')->with('alert-success', 'Xóa vai trò thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa vai trò thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa vai trò thất bại!');
         }
     }
 }

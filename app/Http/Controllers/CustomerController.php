@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\Province;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Customer;
+use App\Models\Province;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
@@ -27,7 +27,7 @@ class CustomerController extends Controller
         }
 
         $data = [
-            'customers' => $customers
+            'customers' => $customers,
         ];
 
         return view('customer.index', $data);
@@ -66,13 +66,13 @@ class CustomerController extends Controller
                 $file_path = 'uploads/avatar/patient/'.$name;
                 Storage::disk('public_uploads')->putFileAs('avatar/patient', $request->avatar, $name);
             }
-            
+
             $create = Customer::create([
                 'code' => '',
                 'name' => $request->name,
                 'email' => $request->email,
                 'gender' => $request->gender,
-                'birthday' => date("Y-m-d", strtotime($request->birthday)),
+                'birthday' => date('Y-m-d', strtotime($request->birthday)),
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'district_id' => $request->district_id,
@@ -83,14 +83,16 @@ class CustomerController extends Controller
             ]);
 
             $create->update([
-                'code' => 'KH'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
+                'code' => 'KH'.str_pad($create->id, 6, '0', STR_PAD_LEFT),
             ]);
-            
+
             DB::commit();
-            return redirect()->route('customers.index')->with('alert-success','Thêm khách hàng thành công!');
+
+            return redirect()->route('customers.index')->with('alert-success', 'Thêm khách hàng thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm khách hàng thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm khách hàng thất bại!');
         }
     }
 
@@ -100,10 +102,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Patient  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
-    {
-
-    }
+    public function show(Customer $customer) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -139,37 +138,38 @@ class CustomerController extends Controller
                 $name = time().'_'.$request->avatar->getClientOriginalName();
                 $file_path = 'uploads/avatar/patient/'.$name;
                 Storage::disk('public_uploads')->putFileAs('avatar/patient', $request->avatar, $name);
-                
+
                 $customer->update([
                     'name' => $request->name,
                     'email' => $request->email,
                     'gender' => $request->gender,
-                    'birthday' => date("Y-m-d", strtotime($request->birthday)),
+                    'birthday' => date('Y-m-d', strtotime($request->birthday)),
                     'phone' => $request->phone,
                     'address' => $request->address,
                     'district_id' => $request->district_id,
                     'province_id' => $request->province_id,
                     'avatar' => $file_path,
                 ]);
-            }
-            else {
+            } else {
                 $customer->update([
                     'name' => $request->name,
                     'email' => $request->email,
                     'gender' => $request->gender,
-                    'birthday' => date("Y-m-d", strtotime($request->birthday)),
+                    'birthday' => date('Y-m-d', strtotime($request->birthday)),
                     'phone' => $request->phone,
                     'address' => $request->address,
                     'district_id' => $request->district_id,
                     'province_id' => $request->province_id,
                 ]);
             }
-            
+
             DB::commit();
-            return redirect()->route('customers.index')->with('alert-success','Sửa khách hàng thành công!');
+
+            return redirect()->route('customers.index')->with('alert-success', 'Sửa khách hàng thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa khách hàng thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Sửa khách hàng thất bại!');
         }
     }
 
@@ -185,16 +185,18 @@ class CustomerController extends Controller
             DB::beginTransaction();
 
             if ($customer->bookings->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách đặt thuê xe.');
+                return redirect()->back()->with('alert-error', 'Xóa khách hàng thất bại! Khách hàng '.$customer->name.' đang có danh sách đặt thuê xe.');
             }
 
             Customer::destroy($customer->id);
-            
+
             DB::commit();
-            return redirect()->route('customers.index')->with('alert-success','Xóa khách hàng thành công!');
+
+            return redirect()->route('customers.index')->with('alert-success', 'Xóa khách hàng thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa khách hàng thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa khách hàng thất bại!');
         }
     }
 }

@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title') Trang Tin Tức @endsection
+@section('title') Tin Tức @endsection
 
 @section('content')
 
 <div class="header">
-  <h2 style=" font-size : 60px;">Trang Tin Tức</h2>
+  <h2 style=" font-size : 60px;">Tin Tức</h2>
 </div>
 
 <div class="row">

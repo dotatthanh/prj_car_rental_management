@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hobby;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreHobbyRequest;
+use App\Models\Hobby;
 use DB;
+use Illuminate\Http\Request;
 
 class HobbyController extends Controller
 {
@@ -24,7 +24,7 @@ class HobbyController extends Controller
         }
 
         $data = [
-            'hobbys' => $hobbys
+            'hobbys' => $hobbys,
         ];
 
         return view('hobby.index', $data);
@@ -50,23 +50,24 @@ class HobbyController extends Controller
     {
         try {
             DB::beginTransaction();
-            
-            $create = Hobby::create([
+
+            Hobby::create([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('hobbys.index')->with('alert-success','Thêm sở thích thành công!');
+
+            return redirect()->route('hobbys.index')->with('alert-success', 'Thêm sở thích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm sở thích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm sở thích thất bại!');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Hobby  $hobby
      * @return \Illuminate\Http\Response
      */
     public function show(Hobby $hobby)
@@ -77,13 +78,12 @@ class HobbyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Hobby  $hobby
      * @return \Illuminate\Http\Response
      */
     public function edit(Hobby $hobby)
     {
         $data = [
-            'data_edit' => $hobby
+            'data_edit' => $hobby,
         ];
 
         return view('hobby.edit', $data);
@@ -93,7 +93,6 @@ class HobbyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hobby  $hobby
      * @return \Illuminate\Http\Response
      */
     public function update(StoreHobbyRequest $request, Hobby $hobby)
@@ -104,19 +103,20 @@ class HobbyController extends Controller
             $hobby->update([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('hobbys.index')->with('alert-success','Sửa sở thích thành công!');
+
+            return redirect()->route('hobbys.index')->with('alert-success', 'Sửa sở thích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa sở thích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Sửa sở thích thất bại!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Hobby  $hobby
      * @return \Illuminate\Http\Response
      */
     public function destroy(Hobby $hobby)
@@ -125,16 +125,18 @@ class HobbyController extends Controller
             DB::beginTransaction();
 
             if ($hobby->hobbyRooms->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa sở thích thất bại! Sở thích '.$hobby->name.' đang thuộc các xe.');
+                return redirect()->back()->with('alert-error', 'Xóa sở thích thất bại! Sở thích '.$hobby->name.' đang thuộc các xe.');
             }
 
             $hobby->destroy($hobby->id);
-            
+
             DB::commit();
-            return redirect()->route('hobbys.index')->with('alert-success','Xóa sở thích thành công!');
+
+            return redirect()->route('hobbys.index')->with('alert-success', 'Xóa sở thích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa sở thích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa sở thích thất bại!');
         }
     }
 }

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use App\Models\Utiliti;
-use App\Models\Hobby;
-use App\Models\RoomUtiliti;
-use App\Models\RoomType;
-use App\Models\HobbyRoom;
-use App\Models\Type;
-use App\Models\District;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\District;
+use App\Models\Hobby;
+use App\Models\HobbyRoom;
+use App\Models\Room;
+use App\Models\RoomType;
+use App\Models\RoomUtiliti;
+use App\Models\Type;
+use App\Models\Utiliti;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
@@ -32,8 +32,7 @@ class RoomController extends Controller
                 $rooms = Room::where('name', 'like', '%'.$request->search.'%')->paginate(10);
                 $rooms->appends(['search' => $request->search]);
             }
-        }
-        else {
+        } else {
             $rooms = Room::where('user_id', auth()->guard('admin')->user()->id)->paginate(10);
 
             if ($request->search) {
@@ -43,7 +42,7 @@ class RoomController extends Controller
         }
 
         $data = [
-            'rooms' => $rooms
+            'rooms' => $rooms,
         ];
 
         return view('room.index', $data);
@@ -81,7 +80,7 @@ class RoomController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             $file_path = '';
             if ($request->file('image')) {
                 $name = time().'_'.$request->image->getClientOriginalName();
@@ -104,7 +103,7 @@ class RoomController extends Controller
             ]);
 
             $create->update([
-                'code' => 'P'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
+                'code' => 'P'.str_pad($create->id, 6, '0', STR_PAD_LEFT),
             ]);
 
             if (isset($request->utilities)) {
@@ -133,19 +132,20 @@ class RoomController extends Controller
                     ]);
                 }
             }
-            
+
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Thêm xe thành công!');
+
+            return redirect()->route('rooms.index')->with('alert-success', 'Thêm xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm xe thất bại!');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
     public function show(Room $room)
@@ -156,7 +156,6 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
     public function edit(Room $room)
@@ -171,7 +170,7 @@ class RoomController extends Controller
             'types' => $types,
             'hobbys' => $hobbys,
             'districts' => $districts,
-            'data_edit' => $room
+            'data_edit' => $room,
         ];
 
         return view('room.edit', $data);
@@ -181,7 +180,6 @@ class RoomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRoomRequest $request, Room $room)
@@ -193,7 +191,7 @@ class RoomController extends Controller
                 $name = time().'_'.$request->image->getClientOriginalName();
                 $file_path = 'uploads/image/product/'.$name;
                 Storage::disk('public_uploads')->putFileAs('image/product', $request->image, $name);
-                
+
                 $room->update([
                     'name' => $request->name,
                     'acreage' => $request->acreage,
@@ -204,8 +202,7 @@ class RoomController extends Controller
                     'image' => $file_path,
                     'district_id' => $request->district_id,
                 ]);
-            }
-            else {
+            } else {
                 $room->update([
                     'name' => $request->name,
                     'acreage' => $request->acreage,
@@ -248,19 +245,19 @@ class RoomController extends Controller
                 }
             }
 
-            
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Sửa xe thành công!');
+
+            return redirect()->route('rooms.index')->with('alert-success', 'Sửa xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Sửa xe thất bại!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
     public function destroy(Room $room)
@@ -269,23 +266,25 @@ class RoomController extends Controller
             DB::beginTransaction();
 
             if ($room->status == 1) {
-                return redirect()->back()->with('alert-error','Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
+                return redirect()->back()->with('alert-error', 'Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
             }
 
             if ($room->bookings->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
+                return redirect()->back()->with('alert-error', 'Xóa xe thất bại! Xe '.$room->name.' đang có người thuê.');
             }
 
             $room->utilities()->delete();
             $room->hobbys()->delete();
             $room->types()->delete();
             $room->destroy($room->id);
-            
+
             DB::commit();
-            return redirect()->route('rooms.index')->with('alert-success','Xóa xe thành công!');
+
+            return redirect()->route('rooms.index')->with('alert-success', 'Xóa xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa xe thất bại!');
         }
     }
 }

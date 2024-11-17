@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -12,16 +11,17 @@ class Customer extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $guard_name = 'web';
+
     protected $guard = 'web';
 
     protected $fillable = [
-    	'code',
-    	'name',
-    	'avatar',
-    	'gender',
-    	'address',
-    	'birthday',
-    	'phone',
+        'code',
+        'name',
+        'avatar',
+        'gender',
+        'address',
+        'birthday',
+        'phone',
         'password',
         'email',
         'province_id',
@@ -43,4 +43,3 @@ class Customer extends Authenticatable
         return $this->belongsTo(District::class);
     }
 }
-

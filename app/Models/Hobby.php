@@ -12,7 +12,7 @@ class Hobby extends Model
     protected $table = 'hobbys';
 
     protected $fillable = [
-    	'name',
+        'name',
     ];
 
     public function hobbyRooms()

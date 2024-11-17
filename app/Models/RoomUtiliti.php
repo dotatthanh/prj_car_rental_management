@@ -10,8 +10,8 @@ class RoomUtiliti extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'room_id',
-    	'utiliti_id',
+        'room_id',
+        'utiliti_id',
     ];
 
     public function utiliti()

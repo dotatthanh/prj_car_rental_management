@@ -17,6 +17,6 @@ return [
     'sent' => 'Chúng tôi đã gửi qua email liên kết đặt lại mật khẩu của bạn!',
     'throttled' => 'Vui lòng đợi trước khi thử lại.',
     'token' => 'Mã thông báo đặt lại mật khẩu này không hợp lệ.',
-    'user' => "Chúng tôi không thể tìm thấy người dùng có địa chỉ email đó.",
+    'user' => 'Chúng tôi không thể tìm thấy người dùng có địa chỉ email đó.',
 
 ];

@@ -12,7 +12,6 @@ class GuestWebMiddleware
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = 'web')
@@ -22,6 +21,7 @@ class GuestWebMiddleware
         if (Auth::guard($guard)->check()) {
             return redirect()->back();
         }
+
         return $next($request);
     }
 }

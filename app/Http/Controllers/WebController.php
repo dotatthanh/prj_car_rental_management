@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\WebLoginRequest;
-use Auth;
-use DB;
-use App\Models\Room;
-use App\Models\Customer;
-use App\Models\Province;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\BookingParkingRequest;
 use App\Http\Requests\BookingRequest;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Prescription;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\WebLoginRequest;
 use App\Models\Booking;
-use App\Models\HealthCertification;
-use App\Models\Utiliti;
-use App\Models\Type;
+use App\Models\Customer;
+use App\Models\CustomerParkingSlot;
 use App\Models\Hobby;
+use App\Models\ParkingRate;
+use App\Models\ParkingSlot;
+use App\Models\Province;
+use App\Models\Room;
+use App\Models\Type;
+use App\Models\Utiliti;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class WebController extends Controller
 {
@@ -31,17 +35,15 @@ class WebController extends Controller
         $types = Type::all();
         $hobbys = Hobby::all();
 
-        if(auth()->guard('web')->user())
-        {
+        if (auth()->guard('web')->user()) {
             $suggests = Room::where('status', 0)
-            ->orWhere('district_id', auth()->guard('web')->user()->district_id)
-            ->get();
+                ->orWhere('district_id', auth()->guard('web')->user()->district_id)
+                ->get();
 
             if ($suggests->count() > 5) {
                 $suggests = $suggests->random(5);
             }
-        }
-        else {
+        } else {
             $suggests = Room::where('status', 0)->get();
 
             if ($suggests->count() > 5) {
@@ -49,51 +51,41 @@ class WebController extends Controller
             }
         }
 
-        if (isset($request->utilities)) 
-        {
+        if (isset($request->utilities)) {
             $rooms = $rooms->whereHas('utilities', function ($query) use ($request) {
                 $query->whereIn('utiliti_id', $request->utilities);
             });
         }
 
-        if (isset($request->hobbys)) 
-        {
+        if (isset($request->hobbys)) {
             $rooms = $rooms->whereHas('hobbys', function ($query) use ($request) {
                 $query->whereIn('hobby_id', $request->hobbys);
             });
         }
 
-        if (isset($request->types)) 
-        {
+        if (isset($request->types)) {
             $rooms = $rooms->whereHas('types', function ($query) use ($request) {
                 $query->whereIn('type_id', $request->types);
             });
         }
 
-        if (isset($request->price)) 
-        {
-            if($request->price == "Dưới 1 triệu")
-            {
+        if (isset($request->price)) {
+            if ($request->price == 'Dưới 1 triệu') {
                 $rooms = $rooms->where('price', '<', 1000000);
             }
-            if($request->price == "1 triệu - 2 triệu")
-            {
+            if ($request->price == '1 triệu - 2 triệu') {
                 $rooms = $rooms->where('price', '>=', 1000000)->where('price', '<=', 2000000);
             }
-            if($request->price == "2 triệu - 3 triệu")
-            {
+            if ($request->price == '2 triệu - 3 triệu') {
                 $rooms = $rooms->where('price', '>=', 2000000)->where('price', '<=', 3000000);
             }
-            if($request->price == "3 triệu - 4 triệu")
-            {
+            if ($request->price == '3 triệu - 4 triệu') {
                 $rooms = $rooms->where('price', '>=', 3000000)->where('price', '<=', 4000000);
             }
-            if($request->price == "4 triệu - 5 triệu")
-            {
+            if ($request->price == '4 triệu - 5 triệu') {
                 $rooms = $rooms->where('price', '>=', 4000000)->where('price', '<=', 5000000);
             }
-            if($request->price == "Trên 5 triệu")
-            {
+            if ($request->price == 'Trên 5 triệu') {
                 $rooms = $rooms->where('price', '>', 5000000);
             }
         }
@@ -108,15 +100,16 @@ class WebController extends Controller
             'request' => $request,
         ];
 
-    	return view('web.index', $data);
+        return view('web.index', $data);
     }
 
     public function login()
     {
-    	return view('web.login');
+        return view('web.login');
     }
 
-    public function postLogin(WebLoginRequest $request) {
+    public function postLogin(WebLoginRequest $request)
+    {
         $data = $request->all();
         if (Auth::guard('web')->attempt([
             'email' => $data['email'],
@@ -130,7 +123,8 @@ class WebController extends Controller
 
     public function logout()
     {
-    	Auth::guard('web')->logout();
+        Auth::guard('web')->logout();
+
         return redirect()->route('home');
     }
 
@@ -142,7 +136,7 @@ class WebController extends Controller
             'provinces' => $provinces,
         ];
 
-    	return view('web.register', $data);
+        return view('web.register', $data);
     }
 
     public function postRegister(StoreCustomerRequest $request)
@@ -162,7 +156,7 @@ class WebController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'gender' => $request->gender,
-                'birthday' => date("Y-m-d", strtotime($request->birthday)),
+                'birthday' => date('Y-m-d', strtotime($request->birthday)),
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'avatar' => $file_path,
@@ -172,22 +166,26 @@ class WebController extends Controller
             ]);
 
             $create->update([
-                'code' => 'KH'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
+                'code' => 'KH'.str_pad($create->id, 6, '0', STR_PAD_LEFT),
             ]);
-            
+
             DB::commit();
-            return redirect()->route('web.login')->with('alert-success','Đăng ký thành công!');
+
+            return redirect()->route('web.login')->with('alert-success', 'Đăng ký thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Đăng ký thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Đăng ký thất bại!');
         }
     }
 
-    public function profile() {
+    public function profile()
+    {
         return view('web.profile');
     }
 
-    public function changeProfile() {
+    public function changeProfile()
+    {
         $provinces = Province::all();
 
         $data = [
@@ -209,37 +207,39 @@ class WebController extends Controller
                 $file_path = 'uploads/avatar/customer/'.$name;
                 Storage::disk('public_uploads')->putFileAs('avatar/customer', $request->avatar, $name);
             }
-            
+
             $customer->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'gender' => $request->gender,
-                'birthday' => date("Y-m-d", strtotime($request->birthday)),
+                'birthday' => date('Y-m-d', strtotime($request->birthday)),
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'province_id' => $request->province_id,
                 'district_id' => $request->district_id,
                 'avatar' => $file_path,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('web.profile')->with('alert-success','Cập nhật thông tin thành công!');
+
+            return redirect()->route('web.profile')->with('alert-success', 'Cập nhật thông tin thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Cập nhật thông tin thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Cập nhật thông tin thất bại!');
         }
     }
 
-    public function changePassword() 
+    public function changePassword()
     {
         return view('web.change-password');
     }
 
-    public function postChangePassword(ChangePasswordRequest $request, $id) 
+    public function postChangePassword(ChangePasswordRequest $request, $id)
     {
         try {
             DB::beginTransaction();
-            
+
             $customer = Customer::find($id);
             if (Hash::check($request->password_old, $customer->password)) {
                 $customer->update([
@@ -248,35 +248,20 @@ class WebController extends Controller
             }
 
             DB::commit();
-        	return redirect()->route('home')->with('alert-success','Đổi mật khẩu thành công!');
+
+            return redirect()->route('home')->with('alert-success', 'Đổi mật khẩu thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Đổi mật khẩu thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Đổi mật khẩu thất bại!');
         }
     }
-
-
-    // public function prescriptionDetail($id)
-    // {
-    //     $prescription = Prescription::find($id);
-
-    //     $data = [
-    //         'prescription' => $prescription
-    //     ];
-
-    //     return view('web.prescription-detail', $data);
-    // }
-
-    // public function bookingExamination()
-    // {
-    //     return view('web.booking-examination');
-    // }
 
     public function booking(BookingRequest $request, $id)
     {
         try {
             DB::beginTransaction();
-            
+
             $customer = auth()->guard('web')->user();
             $room = Room::find($id);
             if ($room->hired < $room->amount) {
@@ -284,19 +269,20 @@ class WebController extends Controller
                     'status' => 0,
                     'customer_id' => $customer->id,
                     'room_id' => $id,
-                    'from_date' => date("Y-m-d", strtotime($request->from_date)),
-                    'to_date' => date("Y-m-d", strtotime($request->to_date)),
+                    'from_date' => date('Y-m-d', strtotime($request->from_date)),
+                    'to_date' => date('Y-m-d', strtotime($request->to_date)),
                 ]);
-            }
-            else {
-                return redirect()->back()->with('alert-error','Xe này đã hết chỗ!');
+            } else {
+                return redirect()->back()->with('alert-error', 'Xe này đã hết chỗ!');
             }
 
             DB::commit();
-            return redirect()->route('home')->with('alert-success','Đặt thuê xe thành công!');
+
+            return redirect()->route('home')->with('alert-success', 'Đặt thuê xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Đặt thuê xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Đặt thuê xe thất bại!');
         }
     }
 
@@ -315,16 +301,18 @@ class WebController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             Booking::find($id)->update([
                 'status' => -1,
             ]);
 
             DB::commit();
-            return redirect()->back()->with('alert-success','Huỷ đặt thuê xe thành công!');
+
+            return redirect()->back()->with('alert-success', 'Huỷ đặt thuê xe thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Huỷ đặt thuê xe thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Huỷ đặt thuê xe thất bại!');
         }
     }
 
@@ -333,7 +321,7 @@ class WebController extends Controller
         $room = Room::find($id);
 
         $data = [
-            'room' => $room
+            'room' => $room,
         ];
 
         return view('web.room-detail', $data);
@@ -344,6 +332,7 @@ class WebController extends Controller
         $respon = [
             'districts' => Province::findOrFail($request->id)->districts()->orderBy('name')->get(),
         ];
+
         return response()->json($respon);
     }
 
@@ -352,9 +341,95 @@ class WebController extends Controller
         return view('web.blog');
     }
 
-    public function blogdetail()
+    public function parkingRental()
     {
-        return view('web.blog-detail');
+        return view('web.parking-rental');
     }
-    
+
+    public function carParkingRental()
+    {
+        $slots = ParkingSlot::where([
+            'vehicle_type' => 'Ô tô',
+            'status' => 'Còn trống',
+        ])->get();
+        $price = ParkingRate::where('vehicle_type', 'Ô tô')->first();
+        $data = [
+            'slots' => $slots,
+            'price' => $price,
+        ];
+
+        return view('web.car-parking-rental', $data);
+    }
+
+    public function bookingParking(BookingParkingRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            switch ($request->form_rent) {
+                case 'Thuê theo giờ':
+                    $startTime = Carbon::parse($request->start_date.' '.$request->start_time)->format('Y-m-d H:i:s');
+                    $endTime = Carbon::parse($request->end_date.' '.$request->end_time)->endOfDay()->format('Y-m-d H:i:s');
+                    break;
+
+                case 'Thuê theo ngày':
+                    $startTime = Carbon::parse($request->start_date)->format('Y-m-d H:i:s');
+                    $endTime = Carbon::parse($request->end_date)->endOfDay()->format('Y-m-d H:i:s');
+                    break;
+
+                case 'Thuê theo tháng':
+                    $startTime = Carbon::parse($request->start_date)->format('Y-m-d H:i:s');
+                    $endTime = Carbon::parse($request->start_date)->addMonths($request->month)->endOfDay()->format('Y-m-d H:i:s');
+                    break;
+
+                default:
+                    return redirect()->back()->with('alert-error', 'Có lỗi xảy ra!');
+                    break;
+            }
+
+            $checkExists = CustomerParkingSlot::where('status', 'Đã duyệt')
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->whereBetween('start_time', [$startTime, $endTime])
+                        ->orWhereBetween('end_time', [$startTime, $endTime]);
+                })
+                ->exists();
+
+            if ($checkExists) {
+                return redirect()->back()->with('alert-error', 'Thời gian thuê vị trí gửi xe đã được đặt!');
+            }
+
+            CustomerParkingSlot::create([
+                'customer_id' => auth('web')->id(),
+                'parking_slot_id' => $request->parking_slot_id,
+                'form_rent' => $request->form_rent,
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ]);
+
+            ParkingSlot::find($request->parking_slot_id)->update(['status' => 'Đã đặt trước']);
+
+            DB::commit();
+
+            return redirect()->route('home')->with('alert-success', 'Đặt thuê chỗ gửi xe thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()->with('alert-error', 'Đặt thuê chỗ gửi xe thất bại!');
+        }
+    }
+
+    public function bikeParkingRental()
+    {
+        $slots = ParkingSlot::where([
+            'vehicle_type' => 'Xe gắn máy',
+            'status' => 'Còn trống',
+        ])->get();
+        $price = ParkingRate::where('vehicle_type', 'Xe gắn máy')->first();
+        $data = [
+            'slots' => $slots,
+            'price' => $price,
+        ];
+
+        return view('web.bike-parking-rental', $data);
+    }
 }

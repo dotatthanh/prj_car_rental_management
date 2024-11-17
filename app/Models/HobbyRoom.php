@@ -10,8 +10,8 @@ class HobbyRoom extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'room_id',
-    	'hobby_id',
+        'room_id',
+        'hobby_id',
     ];
 
     public function hobby()

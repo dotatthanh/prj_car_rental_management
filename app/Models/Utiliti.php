@@ -12,7 +12,7 @@ class Utiliti extends Model
     protected $table = 'utilities';
 
     protected $fillable = [
-    	'name',
+        'name',
     ];
 
     public function roomUtilities()

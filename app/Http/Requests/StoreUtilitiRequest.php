@@ -35,9 +35,9 @@ class StoreUtilitiRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Tên tiện ích là trường bắt buộc.', 
-            'name.max' => 'Tên tiện ích không được dài quá :max ký tự.', 
-            'name.unique' => 'Tiện ích đã tồn tại.', 
+            'name.required' => 'Tên tiện ích là trường bắt buộc.',
+            'name.max' => 'Tên tiện ích không được dài quá :max ký tự.',
+            'name.unique' => 'Tiện ích đã tồn tại.',
         ];
     }
 }

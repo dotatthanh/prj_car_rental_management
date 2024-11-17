@@ -10,18 +10,18 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'code',
-    	'name',
-    	'acreage',
-    	'address',
-    	'description',
-    	'price',
-    	'status',
+        'code',
+        'name',
+        'acreage',
+        'address',
+        'description',
+        'price',
+        'status',
         'image',
         'amount',
         'user_id',
         'district_id',
-        'hired'
+        'hired',
     ];
 
     public function utilities()
@@ -56,9 +56,10 @@ class Room extends Model
 
     public function getHiredAttribute()
     {
-        if ($this->bookings->where('status', 1)->count())
-        return $this->bookings->where('status', 1)->count();
-    else
-        return 0;
+        if ($this->bookings->where('status', 1)->count()) {
+            return $this->bookings->where('status', 1)->count();
+        } else {
+            return 0;
+        }
     }
 }

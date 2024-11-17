@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use DB;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -24,7 +24,7 @@ class PermissionController extends Controller
         }
 
         $data = [
-            'roles' => $roles
+            'roles' => $roles,
         ];
 
         return view('permission.index', $data);
@@ -43,7 +43,6 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -92,7 +91,6 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -110,14 +108,16 @@ class PermissionController extends Controller
                     $role->givePermissionTo($key);
                 }
             }
-            
+
             DB::commit();
-            return redirect()->route('permissions.index')->with('alert-success','Cập nhật quyền thành công!');
+
+            return redirect()->route('permissions.index')->with('alert-success', 'Cập nhật quyền thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Cập nhật quyền thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Cập nhật quyền thất bại!');
         }
-        
+
     }
 
     /**

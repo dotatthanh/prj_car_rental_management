@@ -35,9 +35,9 @@ class StoreHobbyRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Tên sở thích là trường bắt buộc.', 
-            'name.max' => 'Tên sở thích không được dài quá :max ký tự.', 
-            'name.unique' => 'Sở thích đã tồn tại.', 
+            'name.required' => 'Tên sở thích là trường bắt buộc.',
+            'name.max' => 'Tên sở thích không được dài quá :max ký tự.',
+            'name.unique' => 'Sở thích đã tồn tại.',
         ];
     }
 }

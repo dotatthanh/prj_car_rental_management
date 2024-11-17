@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Utiliti;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreUtilitiRequest;
+use App\Models\Utiliti;
 use DB;
+use Illuminate\Http\Request;
 
 class UtilitiController extends Controller
 {
@@ -24,7 +24,7 @@ class UtilitiController extends Controller
         }
 
         $data = [
-            'utilities' => $utilities
+            'utilities' => $utilities,
         ];
 
         return view('utiliti.index', $data);
@@ -50,23 +50,24 @@ class UtilitiController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             $create = Utiliti::create([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Thêm tiện ích thành công!');
+
+            return redirect()->route('utilities.index')->with('alert-success', 'Thêm tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Thêm tiện ích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Thêm tiện ích thất bại!');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Utiliti  $utiliti
      * @return \Illuminate\Http\Response
      */
     public function show(Utiliti $utiliti)
@@ -83,7 +84,7 @@ class UtilitiController extends Controller
     public function edit(Utiliti $utility)
     {
         $data = [
-            'data_edit' => $utility
+            'data_edit' => $utility,
         ];
 
         return view('utiliti.edit', $data);
@@ -104,12 +105,14 @@ class UtilitiController extends Controller
             $utility->update([
                 'name' => $request->name,
             ]);
-            
+
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Sửa tiện ích thành công!');
+
+            return redirect()->route('utilities.index')->with('alert-success', 'Sửa tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Sửa tiện ích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Sửa tiện ích thất bại!');
         }
     }
 
@@ -125,16 +128,18 @@ class UtilitiController extends Controller
             DB::beginTransaction();
 
             if ($utility->roomUtilities->count() > 0) {
-                return redirect()->back()->with('alert-error','Xóa tiện ích thất bại! Tiện ích '.$utility->name.' đang thuộc các xe.');
+                return redirect()->back()->with('alert-error', 'Xóa tiện ích thất bại! Tiện ích '.$utility->name.' đang thuộc các xe.');
             }
 
             $utility->destroy($utility->id);
-            
+
             DB::commit();
-            return redirect()->route('utilities.index')->with('alert-success','Xóa tiện ích thành công!');
+
+            return redirect()->route('utilities.index')->with('alert-success', 'Xóa tiện ích thành công!');
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('alert-error','Xóa tiện ích thất bại!');
+
+            return redirect()->back()->with('alert-error', 'Xóa tiện ích thất bại!');
         }
     }
 }

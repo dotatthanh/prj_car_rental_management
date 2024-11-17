@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePrescriptionRequest extends FormRequest
+class StoreParkingSlotRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,18 @@ class StorePrescriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'patient_id' => 'required', 
-            'user_id' => 'required', 
-            'prescription_details' => 'required', 
+            'slot' => [
+                'required', 'max:255', 'unique:parking_slots',
+            ],
         ];
     }
 
     public function messages()
     {
         return [
-            'patient_id.required' => 'Tên bệnh nhân là trường bắt buộc.',
-            'user_id.required' => 'Bác sĩ là trường bắt buộc.',
-            'prescription_details.required' => 'Đơn thuốc chưa có thuốc.', 
+            'slot.required' => 'Vị trí gửi là trường bắt buộc.',
+            'slot.max' => 'Vị trí gửi không được dài quá :max ký tự.',
+            'slot.unique' => 'Vị trí gửi đã tồn tại.',
         ];
     }
 }

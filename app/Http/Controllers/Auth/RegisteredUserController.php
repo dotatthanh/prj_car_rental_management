@@ -9,8 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -27,7 +27,6 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -63,15 +62,15 @@ class RegisteredUserController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'birthday' => date("Y-m-d", strtotime($request->birthday)),
+            'birthday' => date('Y-m-d', strtotime($request->birthday)),
             'gender' => $request->gender,
             'address' => $request->address,
             'avatar' => $request->avatar,

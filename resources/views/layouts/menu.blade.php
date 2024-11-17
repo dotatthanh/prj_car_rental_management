@@ -24,6 +24,15 @@
                     </li>
                 @endcan
 
+                {{-- @can('Xem danh sách đặt thuê chỗ gửi xe') --}}
+                    <li>
+                        <a href="{{ route('booking_parkings.index') }}" class=" waves-effect">
+                            <i class="bx bx-calendar"></i>
+                            <span>Đặt thuê chỗ gửi xe</span>
+                        </a>
+                    </li>
+                {{-- @endcan --}}
+
                 @can('Xem danh sách tiện ích')
                     <li>
                         <a href="{{ route('utilities.index') }}" class=" waves-effect">
@@ -69,6 +78,15 @@
                 </li>
                 @endcan
 
+                {{-- @can('Xem danh sách chỗ gửi xe') --}}
+                <li>
+                    <a href="{{ route('parking_slots.index') }}" class=" waves-effect">
+                        <i class="bx bx-user-circle"></i>
+                        <span>Chỗ gửi xe</span>
+                    </a>
+                </li>
+                {{-- @endcan --}}
+
                 @can('Xem danh sách tài khoản', 'Xem danh sách vai trò', 'Xem danh sách quyền')
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
@@ -76,6 +94,9 @@
                         <span>Cài đặt</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        {{-- @can('Xem danh sách giá gửi xe') --}}
+                        <li><a href="{{ route('parking_rates.index') }}">Giá gửi xe</a></li>
+                        {{-- @endcan --}}
                         @can('Xem danh sách tài khoản')
                         <li><a href="{{ route('users.index') }}">Tài khoản</a></li>
                         @endcan

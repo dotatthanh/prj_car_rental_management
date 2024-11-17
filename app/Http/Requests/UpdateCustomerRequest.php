@@ -25,7 +25,7 @@ class UpdateCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255', 
+            'name' => 'required|max:255',
             'gender' => 'required',
             'birthday' => 'required|date',
             'phone' => 'required|size:10',
@@ -40,8 +40,8 @@ class UpdateCustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Họ và tên là trường bắt buộc.', 
-            'name.max' => 'Họ và tên không được dài quá :max ký tự.', 
+            'name.required' => 'Họ và tên là trường bắt buộc.',
+            'name.max' => 'Họ và tên không được dài quá :max ký tự.',
             'gender.required' => 'Giới tính là trường bắt buộc.',
             'birthday.required' => 'Ngày sinh là trường bắt buộc.',
             'birthday.date' => 'Ngày sinh không đúng định dạng.',
