@@ -63,7 +63,6 @@
                                                 <th>Ảnh</th>
                                                 <th>Tiêu đề</th>
                                                 <th>Dung tích (m²)</th>
-                                                <th>Số lượng</th>
                                                 <th>Giá (VND)</th>
                                                 <th>Địa chỉ</th>
                                                 <th>Quận/Huyện</th>
@@ -107,7 +106,6 @@
                                                         {{ $room->name }}
                                                     </td>
                                                     <td>{{ $room->acreage }}</td>
-                                                    <td>{{ $room->hired }}/{{ $room->amount }}</td>
                                                     <td>{{ number_format($room->price, 0, ',', '.') }}</td>
                                                     <td>{{ $room->address }}</td>
                                                     <td>{{ $room->district ? $room->district->name : '' }}</td>

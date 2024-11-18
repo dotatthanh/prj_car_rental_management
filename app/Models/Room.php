@@ -18,10 +18,8 @@ class Room extends Model
         'price',
         'status',
         'image',
-        'amount',
         'user_id',
         'district_id',
-        'hired',
     ];
 
     public function utilities()
@@ -52,14 +50,5 @@ class Room extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
-    }
-
-    public function getHiredAttribute()
-    {
-        if ($this->bookings->where('status', 1)->count()) {
-            return $this->bookings->where('status', 1)->count();
-        } else {
-            return 0;
-        }
     }
 }

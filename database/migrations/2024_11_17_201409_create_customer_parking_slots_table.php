@@ -20,7 +20,8 @@ class CreateCustomerParkingSlotsTable extends Migration
             $table->enum('form_rent', ['Thuê theo giờ', 'Thuê theo ngày', 'Thuê theo tháng']);
             $table->datetime('start_time');
             $table->datetime('end_time');
-            $table->enum('status', ['Chờ duyệt', 'Đã duyệt', 'Đã hủy'])->default('Còn trống');
+            $table->enum('status', ['Chờ duyệt', 'Đã duyệt', 'Đã hủy'])->default('Chờ duyệt');
+            $table->unsignedBigInteger('total_money');
             $table->timestamps();
         });
     }

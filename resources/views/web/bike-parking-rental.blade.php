@@ -29,6 +29,7 @@
         @if (auth()->guard('web')->user())
             <form action="{{ route('booking-parking') }}" method="POST">
                 @csrf
+                <input type="hidden" name="vehicle_type" value="Xe gắn máy">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">

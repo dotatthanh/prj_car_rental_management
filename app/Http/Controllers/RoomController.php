@@ -95,7 +95,6 @@ class RoomController extends Controller
                 'address' => $request->address,
                 'description' => $request->description,
                 'price' => $request->price,
-                'amount' => $request->amount,
                 'image' => $file_path,
                 'status' => 0,
                 'user_id' => auth()->id(),
@@ -198,7 +197,6 @@ class RoomController extends Controller
                     'address' => $request->address,
                     'description' => $request->description,
                     'price' => $request->price,
-                    'amount' => $request->amount,
                     'image' => $file_path,
                     'district_id' => $request->district_id,
                 ]);
@@ -209,7 +207,6 @@ class RoomController extends Controller
                     'address' => $request->address,
                     'description' => $request->description,
                     'price' => $request->price,
-                    'amount' => $request->amount,
                     'district_id' => $request->district_id,
                 ]);
             }

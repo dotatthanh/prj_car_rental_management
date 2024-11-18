@@ -34,7 +34,6 @@ class UpdateRoomRequest extends FormRequest
             'utilities' => 'required',
             'hobbys' => 'required',
             'types' => 'required',
-            'amount' => 'required',
             'district_id' => 'required',
         ];
     }
@@ -56,7 +55,6 @@ class UpdateRoomRequest extends FormRequest
             'utilities.required' => 'Tiện ích là trường bắt buộc.',
             'hobbys.required' => 'Sở thích là trường bắt buộc.',
             'types.required' => 'Loại xe là trường bắt buộc.',
-            'amount.required' => 'Số lượng là trường bắt buộc.',
             'district_id.required' => 'Quận/Huyện là trường bắt buộc.',
         ];
     }

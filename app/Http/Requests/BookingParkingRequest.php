@@ -44,6 +44,7 @@ class BookingParkingRequest extends FormRequest
 
         $rules['parking_slot_id'] = 'required';
         $rules['form_rent'] = 'required';
+        $rules['vehicle_type'] = 'required';
 
         return $rules;
     }

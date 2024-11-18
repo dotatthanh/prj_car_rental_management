@@ -16,6 +16,7 @@ class CustomerParkingSlot extends Model
         'start_time',
         'end_time',
         'status',
+        'total_money',
     ];
 
     public function customer()

@@ -78,6 +78,15 @@
                 </li>
                 @endcan
 
+                {{-- @can('Xem danh sách tài xế') --}}
+                <li>
+                    <a href="{{ route('drivers.index') }}" class=" waves-effect">
+                        <i class="bx bx-user-circle"></i>
+                        <span>Tài xế</span>
+                    </a>
+                </li>
+                {{-- @endcan --}}
+
                 {{-- @can('Xem danh sách chỗ gửi xe') --}}
                 <li>
                     <a href="{{ route('parking_slots.index') }}" class=" waves-effect">

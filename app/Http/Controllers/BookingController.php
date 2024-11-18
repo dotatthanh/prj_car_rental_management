@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use DB;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -115,27 +116,21 @@ class BookingController extends Controller
 
             $booking = Booking::find($id);
 
-            if ($booking->room->hired == $booking->room->amount) {
-                return redirect()->back()->with('alert-error', 'Xe này đã hết chỗ!');
+            if ($booking->room->status == 1) {
+                return redirect()->back()->with('alert-error', 'Xe này đã được thuê!');
             }
 
             $booking->update([
                 'status' => 1,
             ]);
 
-            if ($booking->room->hired == $booking->room->amount) {
-                $booking->room->update([
-                    'status' => 1,
-                ]);
-            }
-
             DB::commit();
 
-            return redirect()->back()->with('alert-success', 'Duyệt lịch thành công!');
+            return redirect()->back()->with('alert-success', 'Duyệt thành công!');
         } catch (Exception $e) {
             DB::rollback();
 
-            return redirect()->back()->with('alert-error', 'Duyệt lịch thất bại!');
+            return redirect()->back()->with('alert-error', 'Duyệt thất bại!');
         }
     }
 
@@ -150,11 +145,11 @@ class BookingController extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('alert-success', 'Huỷ lịch thành công!');
+            return redirect()->back()->with('alert-success', 'Huỷ thành công!');
         } catch (Exception $e) {
             DB::rollback();
 
-            return redirect()->back()->with('alert-error', 'Huỷ lịch thất bại!');
+            return redirect()->back()->with('alert-error', 'Huỷ thất bại!');
         }
     }
 }

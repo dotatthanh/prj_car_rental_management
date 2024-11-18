@@ -163,7 +163,6 @@
                             <a href="{{ route('web.room-detail', $room->id) }}"
                                 class="font-weight-bold font-size-20">{{ $room->name }}</a>
                             <p class="text-danger">Dung tích: {{ $room->acreage }}m²</p>
-                            <p class="text-success">Số lượng: {{ $room->hired }}/{{ $room->amount }}</p>
                             <p class="text-danger">Giá: {{ number_format($room->price, 0, ',', '.') }} VND</p>
                             <p>Địa chỉ: {{ $room->address }}</p>
                         </div>
@@ -181,7 +180,6 @@
                             <a href="{{ route('web.room-detail', $suggest->id) }}"
                                 class="font-weight-bold font-size-20">{{ $suggest->name }}</a>
                             <p class="text-danger">Dung tích: {{ $suggest->acreage }}m²</p>
-                            <p class="text-success">Số lượng: {{ $suggest->hired }}/{{ $suggest->amount }}</p>
                             <p class="text-danger">Giá: {{ number_format($suggest->price, 0, ',', '.') }} VND</p>
                             <p>Địa chỉ: {{ $suggest->address }}</p>
                         </div>

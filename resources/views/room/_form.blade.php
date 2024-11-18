@@ -20,12 +20,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="amount">Số lượng <span class="text-danger">*</span></label>
-                    <input id="amount" name="amount" type="number" class="form-control" placeholder="Số lượng" value="{{ old('amount', $data_edit->amount ?? '') }}">
-                    {!! $errors->first('amount', '<span class="error">:message</span>') !!}
-                </div>
-
-                <div class="form-group">
                     <label for="price">Giá <span class="text-danger">*</span></label>
                     <input id="price" name="price" type="number" class="form-control" placeholder="Giá" value="{{ old('price', $data_edit->price ?? '') }}">
                     {!! $errors->first('price', '<span class="error">:message</span>') !!}

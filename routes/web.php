@@ -4,6 +4,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingParkingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\ParkingRateController;
 use App\Http\Controllers\ParkingSlotController;
@@ -91,6 +92,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('utilities', UtilitiController::class);
         Route::resource('parking_slots', ParkingSlotController::class);
         Route::resource('parking_rates', ParkingRateController::class);
+        Route::resource('drivers', DriverController::class);
     });
     require __DIR__.'/auth.php';
 });

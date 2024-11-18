@@ -259,31 +259,35 @@ class WebController extends Controller
 
     public function booking(BookingRequest $request, $id)
     {
-        try {
-            DB::beginTransaction();
-
-            $customer = auth()->guard('web')->user();
-            $room = Room::find($id);
-            if ($room->hired < $room->amount) {
-                Booking::create([
-                    'status' => 0,
-                    'customer_id' => $customer->id,
-                    'room_id' => $id,
-                    'from_date' => date('Y-m-d', strtotime($request->from_date)),
-                    'to_date' => date('Y-m-d', strtotime($request->to_date)),
-                ]);
-            } else {
-                return redirect()->back()->with('alert-error', 'Xe này đã hết chỗ!');
-            }
-
-            DB::commit();
-
-            return redirect()->route('home')->with('alert-success', 'Đặt thuê xe thành công!');
-        } catch (Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->with('alert-error', 'Đặt thuê xe thất bại!');
+        $customer = auth()->guard('web')->user();
+        $room = Room::find($id);
+        if ($room->status == 1) {
+            return redirect()->back()->with('alert-error', 'Xe này đã được thuê!');
         }
+
+        $checkExists = Booking::where([
+            'room_id' => $id,
+            'status' => 1,
+        ])
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('from_date', [$request->from_date, $request->to_date])
+                    ->orWhereBetween('to_date', [$request->from_date, $request->to_date]);
+            })
+            ->exists();
+
+        if ($checkExists) {
+            return redirect()->back()->with('alert-error', 'Thời gian thuê vị trí gửi xe đã được đặt!');
+        }
+
+        Booking::create([
+            'status' => 0,
+            'customer_id' => $customer->id,
+            'room_id' => $id,
+            'from_date' => date('Y-m-d', strtotime($request->from_date)),
+            'to_date' => date('Y-m-d', strtotime($request->to_date)),
+        ]);
+
+        return redirect()->route('home')->with('alert-success', 'Đặt thuê xe thành công!');
     }
 
     public function infoBooking()
@@ -299,21 +303,11 @@ class WebController extends Controller
 
     public function cancelAppointment($id)
     {
-        try {
-            DB::beginTransaction();
+        Booking::find($id)->update([
+            'status' => -1,
+        ]);
 
-            Booking::find($id)->update([
-                'status' => -1,
-            ]);
-
-            DB::commit();
-
-            return redirect()->back()->with('alert-success', 'Huỷ đặt thuê xe thành công!');
-        } catch (Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->with('alert-error', 'Huỷ đặt thuê xe thất bại!');
-        }
+        return redirect()->back()->with('alert-success', 'Huỷ đặt thuê xe thành công!');
     }
 
     public function roomDetail($id)
@@ -365,21 +359,34 @@ class WebController extends Controller
     {
         try {
             DB::beginTransaction();
-
+            $price = ParkingRate::where('vehicle_type', $request->vehicle_type)->first();
             switch ($request->form_rent) {
                 case 'Thuê theo giờ':
-                    $startTime = Carbon::parse($request->start_date.' '.$request->start_time)->format('Y-m-d H:i:s');
-                    $endTime = Carbon::parse($request->end_date.' '.$request->end_time)->endOfDay()->format('Y-m-d H:i:s');
+                    $startDateTime = Carbon::parse("{$request->start_date} {$request->start_time}");
+                    $endDateTime = Carbon::parse("{$request->end_date} {$request->end_time}");
+                    $minutesDifference = $startDateTime->diffInMinutes($endDateTime);
+                    $hoursDifference = ceil($minutesDifference / 60);
+
+                    $totalMoney = $price->hourly_rate * $hoursDifference;
+                    $startTime = $startDateTime->format('Y-m-d H:i:s');
+                    $endTime = $endDateTime->format('Y-m-d H:i:s');
+
                     break;
 
                 case 'Thuê theo ngày':
-                    $startTime = Carbon::parse($request->start_date)->format('Y-m-d H:i:s');
-                    $endTime = Carbon::parse($request->end_date)->endOfDay()->format('Y-m-d H:i:s');
+                    $startTime = Carbon::parse($request->start_date);
+                    $endTime = Carbon::parse($request->end_date)->endOfDay();
+                    $daysDifference = ceil($startTime->diffInMinutes($endTime) / (24 * 60));
+
+                    $totalMoney = $price->daily_rate * $daysDifference;
+                    $startTime = $startTime->format('Y-m-d H:i:s');
+                    $endTime = $endTime->format('Y-m-d H:i:s');
                     break;
 
                 case 'Thuê theo tháng':
                     $startTime = Carbon::parse($request->start_date)->format('Y-m-d H:i:s');
                     $endTime = Carbon::parse($request->start_date)->addMonths($request->month)->endOfDay()->format('Y-m-d H:i:s');
+                    $totalMoney = $price->monthly_rate * $request->month;
                     break;
 
                 default:
@@ -387,7 +394,10 @@ class WebController extends Controller
                     break;
             }
 
-            $checkExists = CustomerParkingSlot::where('status', 'Đã duyệt')
+            $checkExists = CustomerParkingSlot::where([
+                'parking_slot_id' => $request->parking_slot_id,
+                'status' => 'Đã duyệt',
+            ])
                 ->where(function ($query) use ($startTime, $endTime) {
                     $query->whereBetween('start_time', [$startTime, $endTime])
                         ->orWhereBetween('end_time', [$startTime, $endTime]);
@@ -404,6 +414,7 @@ class WebController extends Controller
                 'form_rent' => $request->form_rent,
                 'start_time' => $startTime,
                 'end_time' => $endTime,
+                'total_money' => $totalMoney,
             ]);
 
             ParkingSlot::find($request->parking_slot_id)->update(['status' => 'Đã đặt trước']);
